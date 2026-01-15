@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "608731956334",
+    "project_id": "rentsy-721c8",
+    "storage_bucket": "rentsy-721c8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608731956334:android:6b9678daeb0dc4505d127f",
+        "android_client_info": {
+          "package_name": "com.example.saved"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjKLUFlREIn8fi4bt0ljlg0m0qC5rc-Vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608731956334:android:d1a80c23f7f5ebba5d127f",
+        "android_client_info": {
+          "package_name": "com.example.testsy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjKLUFlREIn8fi4bt0ljlg0m0qC5rc-Vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
