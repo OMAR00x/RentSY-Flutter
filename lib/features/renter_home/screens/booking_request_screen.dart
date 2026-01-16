@@ -20,7 +20,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
   DateTime? _checkInDate;
   DateTime? _checkOutDate;
   DateTime _focusedDay = DateTime.now(); // استخدام DateTime.now() كنقطة بداية
-  final String _paymentMethod = 'wallet'; // ثابت حالياً حسب طلبك
+  final String _paymentMethod = 'wallet';
 
   // ✨ دالة لحساب عدد الأيام
   int get _numberOfNights {
@@ -34,11 +34,9 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
     return widget.apartment.price * _numberOfNights;
   }
 
-  // ✨ رسوم الخدمة (يمكن أن تكون ثابتة أو نسبة مئوية)
-  // حالياً، سأبقيها ثابتة 25 كما في مثالك، ولكن يمكن ربطها بالـ apartment.price
+  // ✨ رسوم الخدمة - تم إزالتها
   double get _serviceFee {
-    return 25.0; // مثال: رسوم خدمة ثابتة
-    // أو يمكن أن تكون نسبة مئوية: return _baseRate * 0.05; // 5% خدمة
+    return 0.0;
   }
 
   double get _totalAmount {
@@ -234,9 +232,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
       ),
       child: Column(
         children: [
-          _priceRow('Base Rate ($_numberOfNights nights)', _baseRate), // ✨ ديناميكي
-          const SizedBox(height: 8),
-          _priceRow('Service Fee', _serviceFee), // ✨ ديناميكي
+          _priceRow('Base Rate ($_numberOfNights nights)', _baseRate),
           const Divider(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -292,7 +288,6 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
                       apartmentId: widget.apartment.id,
                       startDate: _checkInDate!,
                       endDate: _checkOutDate!,
-                      paymentMethod: _paymentMethod,
                     );
               }
             : null,

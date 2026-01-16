@@ -1,10 +1,11 @@
-// lib/features/renter_home/widgets/booking_card.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:saved/constants/app_colors.dart';
-import 'package:saved/constants/api_constants.dart'; // For getFullImageUrl
+import 'package:saved/constants/api_constants.dart';
 import 'package:saved/core/domain/models/booking_model.dart';
-import 'package:saved/features/renter_home/screens/my_bookings_screen.dart'; // For BookingType enum
+import 'package:saved/features/renter_home/screens/my_bookings_screen.dart';
+import 'package:saved/features/renter_home/cubit/my_bookings_cubit.dart';
 
 class BookingCard extends StatelessWidget {
   final BookingModel booking;
@@ -184,9 +185,15 @@ class BookingCard extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: onReschedule != null
-                          ? () => onReschedule!(booking.id, booking.startDate, booking.endDate)
-                          : null,
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/booking-request',
+                          arguments: booking.apartment,
+                        ).then((_) {
+                          context.read<MyBookingsCubit>().fetchMyBookings();
+                        });
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.charcoal,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

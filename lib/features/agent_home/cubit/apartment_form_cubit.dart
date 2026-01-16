@@ -12,8 +12,8 @@ class ApartmentFormCubit extends Cubit<ApartmentFormState> {
   ApartmentFormCubit(this._agentRepository) : super(const ApartmentFormState.initial());
 
   Future<void> fetchFormData() async {
+    emit(const ApartmentFormState.loading());
     try {
-      emit(const ApartmentFormState.loading());
       final results = await Future.wait([
         _agentRepository.getAmenities(),
         _agentRepository.getCities(),
@@ -22,7 +22,7 @@ class ApartmentFormCubit extends Cubit<ApartmentFormState> {
       final cities = results[1] as List<CityModel>;
       emit(ApartmentFormState.success(cities: cities, amenities: amenities));
     } catch (e) {
-      emit(ApartmentFormState.error(e.toString().replaceAll('Exception: ', '')));
+      emit(ApartmentFormState.error('Failed to load cities. Please try again.'));
     }
   }
 

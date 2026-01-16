@@ -65,7 +65,9 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRouter.notifications);
+            },
             icon: const Icon(Icons.notifications_none),
             color: accentColor,
             iconSize: 28,
@@ -90,25 +92,6 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     children: [
-                      const SizedBox(height: 12),
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, AppRouter.searchApartments),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(color: const Color(0xFFF0EAE2), borderRadius: BorderRadius.circular(12)),
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 12),
-                              const Icon(Icons.search, color: accentColor),
-                              const SizedBox(width: 8),
-                              Text(
-                                AppStrings.searchYourApartments,
-                                style: TextStyle(color: secondaryText, fontSize: 15, fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                       const SizedBox(height: 20),
                       Expanded(
                         child: ListView.separated(
@@ -158,8 +141,10 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
             Navigator.pushNamed(context, AppRouter.bookingRequests);
           }
 
-          // يمكنك إضافة منطق الـ "Chat" (index 2) هنا لاحقاً
-          // if (index == 2) { ... }
+          // Chat - يفتح صفحة المحادثات
+          if (index == 2) {
+            Navigator.pushNamed(context, AppRouter.conversations);
+          }
 
           // ✨ إذا ضغط على "Profile" (index 3)، انتقل إلى شاشة البروفايل
           if (index == 3) {

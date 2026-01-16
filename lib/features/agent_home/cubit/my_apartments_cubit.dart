@@ -27,12 +27,28 @@ class MyApartmentsCubit extends Cubit<MyApartmentsState> {
   Future<void> deleteApartment(int apartmentId) async {
     try {
       await _agentRepository.deleteApartment(apartmentId);
-      // After a successful deletion, refresh the list to reflect the change.
       await fetchMyApartments();
     } catch (e) {
-      // If deletion fails, we can show an error.
-      // For now, the list will just not update. You could add more complex error handling here.
-      // For example, by emitting a new state that the UI can listen for to show a SnackBar.
+    }
+  }
+
+  Future<void> searchApartments(String query) async {
+    try {
+      emit(const MyApartmentsState.loading());
+      final apartments = await _agentRepository.getMyApartments();
+      final filtered = apartments.where((apt) => 
+        apt.title.toLowerCase().contains(query.toLowerCase()) ||
+        apt.address.toLowerCase().contains(query.toLowerCase()) ||
+        apt.description.toLowerCase().contains(query.toLowerCase())
+      ).toList();
+      
+      if (filtered.isEmpty) {
+        emit(const MyApartmentsState.empty());
+      } else {
+        emit(MyApartmentsState.success(filtered));
+      }
+    } catch (e) {
+      emit(MyApartmentsState.error(e.toString().replaceAll('Exception: ', '')));
     }
   }
 }

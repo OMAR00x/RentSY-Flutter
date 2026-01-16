@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saved/core/routing/app_router.dart';
-import 'package:saved/core/widgets/loading_widget.dart'; // ✨ استيراد
+import 'package:saved/core/widgets/loading_widget.dart';
+import 'package:saved/core/domain/models/filter_params.dart';
 import 'package:saved/features/renter_home/cubit/all_apartments_cubit.dart';
 import 'package:saved/features/renter_home/cubit/all_apartments_state.dart';
+import 'package:saved/features/renter_home/cubit/filter_cubit.dart';
+import 'package:saved/features/renter_home/cubit/search_history_cubit.dart';
+import 'package:saved/features/renter_home/screens/filter_screen.dart';
+import 'package:saved/features/renter_home/screens/renter_search_screen.dart';
+import 'package:saved/features/renter_home/repository/renter_repository.dart';
+import 'package:saved/features/agent_home/repository/agent_repository.dart';
 import '../widgets/apartment_card.dart';
 import '../widgets/home_header.dart';
 import '../widgets/search_filter_section.dart';
@@ -15,6 +22,8 @@ class RenterHomeScreen extends StatefulWidget {
 }
 
 class _RenterHomeScreenState extends State<RenterHomeScreen> {
+  FilterParams _currentFilters = FilterParams();
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +41,41 @@ class _RenterHomeScreenState extends State<RenterHomeScreen> {
           children: [
             const HomeHeader(),
             const SizedBox(height: 20),
-            const SearchFilterSection(),
+            SearchFilterSection(
+              onSearchTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MultiBlocProvider(
+                      providers: [
+                        BlocProvider.value(value: context.read<AllApartmentsCubit>()),
+                        BlocProvider(create: (ctx) => SearchHistoryCubit(context.read<RenterRepository>())),
+                      ],
+                      child: const RenterSearchScreen(),
+                    ),
+                  ),
+                );
+              },
+              onFilterTap: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (ctx) => FilterCubit(context.read<AgentRepository>()),
+                      child: FilterScreen(
+                        initialFilterParams: _currentFilters,
+                      ),
+                    ),
+                  ),
+                );
+                if (result != null && result is FilterParams) {
+                  setState(() {
+                    _currentFilters = result;
+                  });
+                  context.read<AllApartmentsCubit>().fetchAllApartments(filterParams: result);
+                }
+              },
+            ),
             const SizedBox(height: 24),
             Expanded(
               child: BlocBuilder<AllApartmentsCubit, AllApartmentsState>(

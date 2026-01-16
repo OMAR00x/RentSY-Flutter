@@ -22,33 +22,40 @@ abstract class FilterState with _$FilterState {
 }
 
 class FilterCubit extends Cubit<FilterState> {
-  final AgentRepository _agentRepository; // نستخدم AgentRepository لجلب المدن والميزات لأنها بيانات عامة
-  final FilterParams initialParams; // المعايير الأولية لتهيئة الفلاتر
+  final AgentRepository _agentRepository;
+  FilterParams _initialParams = FilterParams();
 
-  FilterCubit(this._agentRepository, {FilterParams? initialParams})
-      : initialParams = initialParams ?? FilterParams(),
-        super(const FilterState.initial());
+  FilterCubit(this._agentRepository) : super(const FilterState.initial());
+
+  void setInitialParams(FilterParams params) {
+    _initialParams = params;
+  }
 
   Future<void> loadFilterOptions() async {
+    if (state is _Loading) return; // منع التحميل المتكرر
+    
     emit(const FilterState.loading());
     try {
       final cities = await _agentRepository.getCities();
       final allAmenities = await _agentRepository.getAmenities();
 
       List<AreaModel> areas = [];
-      // إذا كانت هناك مدينة مختارة مسبقاً، نجلب مناطقها
-      if (initialParams.cityId != null) {
-        areas = await _agentRepository.getAreasForCity(initialParams.cityId!);
+      if (_initialParams.cityId != null) {
+        try {
+          areas = await _agentRepository.getAreasForCity(_initialParams.cityId!);
+        } catch (e) {
+          areas = [];
+        }
       }
 
       emit(FilterState.success(
         cities: cities,
         areas: areas,
         allAmenities: allAmenities,
-        currentFilterParams: initialParams.copyWith(), // نستخدم copy لضمان عدم التعديل المباشر
+        currentFilterParams: _initialParams.copyWith(),
       ));
     } catch (e) {
-      emit(FilterState.error(e.toString()));
+      emit(FilterState.error('Failed to load filter options. Please try again.'));
     }
   }
 
@@ -59,14 +66,16 @@ class FilterCubit extends Cubit<FilterState> {
       List<AreaModel> areas = [];
       FilterParams updatedParams = currentState.currentFilterParams.copyWith(
         cityId: city?.id,
-        areaId: null, // نعيد ضبط المنطقة عند تغيير المدينة
+        areaId: null,
+        resetCity: city == null,
+        resetArea: true,
       );
 
       if (city != null) {
         try {
           areas = await _agentRepository.getAreasForCity(city.id);
         } catch (e) {
-          areas = []; // في حال وجود خطأ في جلب المناطق
+          areas = [];
         }
       }
       emit(currentState.copyWith(
@@ -129,10 +138,9 @@ class FilterCubit extends Cubit<FilterState> {
     }
   }
 
-  // لإعادة ضبط جميع الفلاتر
   void resetFilters() {
-    emit(const FilterState.loading());
-    loadFilterOptions(); // إعادة التحميل بالمعايير الأولية (الفارغة)
+    _initialParams = FilterParams();
+    loadFilterOptions();
   }
 
   // getter للحصول على معايير الفلترة المطبقة النهائية

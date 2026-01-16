@@ -21,6 +21,9 @@ import 'package:saved/features/renter_home/screens/renter_apartments_details_scr
 import 'package:saved/features/renter_home/screens/renter_main_navigation_screen.dart';
 import 'package:saved/features/splash_onboarding/screens/onboarding_screen.dart';
 import 'package:saved/features/splash_onboarding/screens/splash_screen.dart';
+import 'package:saved/features/chat/screens/chat_screen.dart';
+import 'package:saved/features/chat/screens/conversations_screen.dart';
+import 'package:saved/features/notifications/screens/notifications_screen.dart';
 
 class AppRouter {
   static const String splash = '/';
@@ -41,6 +44,9 @@ class AppRouter {
   static const String bookingRequest = '/booking-request';
   static const String paymentMethodSelection = '/payment-method-selection';
   static const String creditCardFormScreen = '/credit-card-form-screen';
+  static const String chat = '/chat';
+  static const String conversations = '/conversations';
+  static const String notifications = '/notifications';
 
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -130,6 +136,26 @@ class AppRouter {
             body: Center(child: Text("Error: User data was not provided.")),
           ),
         );
+      case chat:
+        final args = settings.arguments as Map<String, dynamic>?;
+        if (args != null) {
+          return NetflixTransition(
+            page: ChatScreen(
+              apartmentId: args['apartmentId'],
+              otherUserId: args['otherUserId'],
+              otherUserName: args['otherUserName'],
+            ),
+          );
+        }
+        return NetflixTransition(
+          page: const Scaffold(
+            body: Center(child: Text("Error: Missing chat data")),
+          ),
+        );
+      case notifications:
+        return NetflixTransition(page: const NotificationsScreen());
+      case conversations:
+        return NetflixTransition(page: const ConversationsScreen());
       default:
         return NetflixTransition(
           page: const Scaffold(body: Center(child: Text('Page Not Found'))),

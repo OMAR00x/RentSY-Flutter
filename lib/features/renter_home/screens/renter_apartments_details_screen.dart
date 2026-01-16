@@ -167,7 +167,17 @@ class RenterApartmentDetailsScreen extends StatelessWidget {
                       ),
                       const Spacer(),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRouter.chat,
+                            arguments: {
+                              'apartmentId': apartment.id,
+                              'otherUserId': apartment.owner.id,
+                              'otherUserName': '${apartment.owner.firstName} ${apartment.owner.lastName}',
+                            },
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.charcoal,
                           foregroundColor: Colors.white,

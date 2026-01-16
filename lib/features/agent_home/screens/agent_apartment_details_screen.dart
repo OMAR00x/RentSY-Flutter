@@ -86,13 +86,10 @@ class AgentApartmentDetailsScreen extends StatelessWidget {
                       ],
                       
                       _buildSectionTitle('Details'),
-                      // --- ✨ 2. عرض عدد الغرف فقط إذا كان موجوداً ---
+                      
                       if (apartment.rooms > 0)
                         _buildInfoCard("Rooms", apartment.rooms.toString(), Icons.bed_outlined),
                       
-                      _buildInfoCard("Status", apartment.status, Icons.check_circle_outline, valueColor: apartment.status == 'active' ? Colors.green.shade700 : Colors.orange.shade700),
-                      
-                      // --- ✨ 3. عرض المدينة فقط إذا كان اسمها موجوداً ---
                       if (apartment.city.name.isNotEmpty && apartment.city.name != 'Unknown')
                         _buildInfoCard("City", apartment.city.name, Icons.location_city_outlined),
                     ],

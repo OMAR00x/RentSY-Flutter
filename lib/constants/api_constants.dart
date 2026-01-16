@@ -1,11 +1,19 @@
 // lib/constants/api_constants.dart
 
-// --- ✨ 1. هذا هو عنوان السيرفر الأساسي فقط ---
-// لا يحتوي على /api
-const String domain = 'http://192.168.137.1:8000';
+import 'dart:io';
 
-// --- ✨ 2. هذا هو المسار الكامل لنقاط نهاية الـ API ---
-const String baseUrl = '$domain/api'; 
+// تحديد الـ domain تلقائياً حسب المنصة
+String get domain {
+  if (Platform.isAndroid) {
+    return 'http://192.168.137.1:8000'; // للجوال الحقيقي
+  } else {}
+  return 'http://10.0.2.2:8000'; // للمحاكي
+}
+
+String get baseUrl => '$domain/api';
+
+//const String domain = 'http://10.0.2.2:8000';
+//const String baseUrl = '$domain/api';
 
 // --- ✨ 3. هذه هي الدالة الصحيحة لعرض الصور ---
 // هي تستخدم `domain` (بدون /api) وتضيف إليه /storage
@@ -14,6 +22,6 @@ String getFullImageUrl(String relativePath) {
   if (relativePath.startsWith('/')) {
     relativePath = relativePath.substring(1);
   }
-  
+
   return '$domain/storage/$relativePath';
 }

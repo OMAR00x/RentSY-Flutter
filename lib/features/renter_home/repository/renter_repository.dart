@@ -1,39 +1,47 @@
 import 'package:dio/dio.dart';
 import 'package:saved/core/domain/models/apartment_model.dart';
 import 'package:saved/core/domain/models/booking_model.dart';
-import 'package:saved/core/services/api_client.dart'; // ✨ 1. استيراد العميل المركزي
+import 'package:saved/core/domain/models/filter_params.dart';
+import 'package:saved/core/domain/models/search_history_model.dart';
+import 'package:saved/core/services/api_client.dart';
 
 class RenterRepository {
   // ✨ 2. استخدام نسخة Dio من العميل المركزي
   final Dio _dio = ApiClient().dio;
 
-  /// يجلب كل الشقق المتاحة للعرض للمستأجر
-  Future<List<ApartmentModel>> getAllApartments() async {
-    // ✨ 3. المسار الذي أعطيتني إياه
+  Future<List<ApartmentModel>> getAllApartments({FilterParams? filterParams}) async {
     const String endpoint = '/apartments';
 
     try {
-      // ✨ 4. الطلب أصبح بسيطاً جداً لأن التوكن يضاف تلقائياً
-      final response = await _dio.get(endpoint);
+      final queryParams = <String, dynamic>{};
+      if (filterParams != null) {
+        if (filterParams.cityId != null) queryParams['city_id'] = filterParams.cityId;
+        if (filterParams.areaId != null) queryParams['area_id'] = filterParams.areaId;
+        if (filterParams.minPrice != null) queryParams['min_price'] = filterParams.minPrice;
+        if (filterParams.maxPrice != null) queryParams['max_price'] = filterParams.maxPrice;
+        if (filterParams.minRooms != null) queryParams['rooms'] = filterParams.minRooms;
+        if (filterParams.searchQuery != null && filterParams.searchQuery!.isNotEmpty) {
+          queryParams['search'] = filterParams.searchQuery;
+        }
+        if (filterParams.amenityIds != null && filterParams.amenityIds!.isNotEmpty) {
+          queryParams['amenities'] = filterParams.amenityIds!.join(',');
+        }
+      }
 
-      // الـ API يرجع قائمة مباشرة، لذا نقوم بتحويلها
+      final response = await _dio.get(endpoint, queryParameters: queryParams);
+
       if (response.data is List) {
         final List responseData = response.data as List;
-        
-        // تحويل كل عنصر في القائمة إلى ApartmentModel
         return responseData
             .map((apartmentJson) => ApartmentModel.fromJson(apartmentJson))
             .toList();
       } else {
-        // في حال أرجع الـ API شيئاً غير متوقع (ليس قائمة)
         throw Exception('API response is not a list as expected.');
       }
     } on DioException catch (e) {
-      // التعامل مع أخطاء الشبكة والـ API
       final errorMessage = e.response?.data?['message'] ?? 'Failed to load apartments. Please try again.';
       throw Exception(errorMessage);
     } catch (e) {
-      // للتعامل مع أي أخطاء أخرى غير متوقعة
       throw Exception('An unexpected error occurred: $e');
     }
   }
@@ -80,17 +88,15 @@ class RenterRepository {
     required int apartmentId,
     required DateTime startDate,
     required DateTime endDate,
-    required String paymentMethod,
   }) async {
-    const String endpoint = '/bookings'; // المسار الذي أعطيتني إياه
+    const String endpoint = '/bookings';
     try {
       final response = await _dio.post(
         endpoint,
         data: {
           'apartment_id': apartmentId,
-          'start_date': startDate.toIso8601String().split('T').first, // تنسيق التاريخ ليتناسب مع الـ API
-          'end_date': endDate.toIso8601String().split('T').first,     // تنسيق التاريخ ليتناسب مع الـ API
-          'payment_method': paymentMethod,
+          'start_date': startDate.toIso8601String().split('T').first,
+          'end_date': endDate.toIso8601String().split('T').first,
         },
       );
 
@@ -165,6 +171,38 @@ class RenterRepository {
       }
     } on DioException catch (e) {
       final errorMessage = e.response?.data?['message'] ?? 'Failed to cancel booking. Please try again.';
+      throw Exception(errorMessage);
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
+  }
+
+  Future<List<SearchHistoryModel>> getSearchHistory() async {
+    const String endpoint = '/search-history';
+    try {
+      final response = await _dio.get(endpoint);
+      if (response.data is List) {
+        final List responseData = response.data as List;
+        return responseData
+            .map((json) => SearchHistoryModel.fromJson(json))
+            .toList();
+      } else {
+        throw Exception('API response is not a list as expected.');
+      }
+    } on DioException catch (e) {
+      final errorMessage = e.response?.data?['message'] ?? 'Failed to load search history.';
+      throw Exception(errorMessage);
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
+  }
+
+  Future<void> deleteSearchHistory(int id) async {
+    final String endpoint = '/search-history/$id';
+    try {
+      await _dio.delete(endpoint);
+    } on DioException catch (e) {
+      final errorMessage = e.response?.data?['message'] ?? 'Failed to delete search history.';
       throw Exception(errorMessage);
     } catch (e) {
       throw Exception('An unexpected error occurred: $e');

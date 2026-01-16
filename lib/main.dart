@@ -22,6 +22,11 @@ import 'package:saved/features/renter_home/cubit/favorite_cubit.dart';
 import 'package:saved/features/renter_home/cubit/my_bookings_cubit.dart';
 import 'package:saved/features/renter_home/repository/renter_repository.dart';
 import 'package:saved/features/renter_home/cubit/booking_cubit.dart';
+import 'package:saved/features/chat/cubit/chat_cubit.dart';
+import 'package:saved/features/chat/repository/chat_repository.dart';
+import 'package:saved/features/notifications/cubit/notification_cubit.dart';
+import 'package:saved/features/notifications/repository/notification_repository.dart';
+import 'package:saved/features/renter_home/cubit/filter_cubit.dart';
 import 'package:saved/firebase_options.dart';
 
 void main() async {
@@ -42,6 +47,8 @@ void main() async {
         RepositoryProvider(create: (context) => AgentRepository()),
         RepositoryProvider(create: (context) => RenterRepository()),
         RepositoryProvider(create: (context) => ProfileRepository()),
+        RepositoryProvider(create: (context) => ChatRepository()),
+        RepositoryProvider(create: (context) => NotificationRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -88,6 +95,15 @@ void main() async {
           BlocProvider(
             create: (context) =>
                 FavoriteCubit(context.read<RenterRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => ChatCubit(context.read<ChatRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => NotificationCubit(context.read<NotificationRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => FilterCubit(context.read<AgentRepository>()),
           ),
         ],
         child: const MyApp(),

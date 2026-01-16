@@ -62,9 +62,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             loadInProgress: () => const LoadingWidget(),
             updateInProgress: () => const LoadingWidget(),
             loadFailure: (message) => _buildErrorState(context, message),
-            updateFailure: (message) => _buildErrorState(context, 'Update Failed: $message'),
+            updateFailure: (message) =>
+                _buildErrorState(context, 'Update Failed: $message'),
             loadSuccess: (user) => _buildSuccessUI(context, user),
-            updateSuccess: (updatedUser) => _buildSuccessUI(context, updatedUser),
+            updateSuccess: (updatedUser) =>
+                _buildSuccessUI(context, updatedUser),
           );
         },
       ),
@@ -104,7 +106,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10), // Added spacing
-          Container( // Display wallet balance directly
+          Container(
+            // Display wallet balance directly
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: AppColors.mocha.withOpacity(0.1),
@@ -113,7 +116,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.account_balance_wallet_outlined, color: AppColors.mocha, size: 20),
+                const Icon(
+                  Icons.account_balance_wallet_outlined,
+                  color: AppColors.mocha,
+                  size: 20,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   'Wallet: \$${user.walletBalance.toStringAsFixed(2)}',
@@ -173,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             trailing: Switch(
               value: isDarkMode,
               onChanged: (val) => setState(() => isDarkMode = val),
-              activeColor: AppColors.mocha,
+              activeThumbColor: AppColors.mocha,
             ),
           ),
           const SizedBox(height: 12),

@@ -78,6 +78,14 @@ class AuthRepository {
   }
 
   Future<void> logout() async {
+    try {
+      final String? fcmToken = await NotificationService.getFcmToken();
+      if (fcmToken != null) {
+        await _dio.post('/logout', data: {'fcm_token': fcmToken});
+      }
+    } catch (e) {
+      debugPrint("Error during logout API call: $e");
+    }
     await _storage.delete(key: 'auth_token');
     debugPrint("User logged out and token deleted.");
   }

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saved/core/domain/models/filter_params.dart';
 import 'package:saved/features/renter_home/cubit/all_apartments_state.dart';
 import 'package:saved/features/renter_home/repository/renter_repository.dart';
 
@@ -7,22 +8,23 @@ class AllApartmentsCubit extends Cubit<AllApartmentsState> {
 
   AllApartmentsCubit(this._renterRepository) : super(const AllApartmentsState.initial());
 
-  Future<void> fetchAllApartments() async {
-    // 1. إصدار حالة التحميل
+  Future<void> fetchAllApartments({FilterParams? filterParams}) async {
     emit(const AllApartmentsState.loading());
     try {
-      // 2. طلب البيانات من الـ Repository
-      final apartments = await _renterRepository.getAllApartments();
+      final apartments = await _renterRepository.getAllApartments(filterParams: filterParams);
 
-      // 3. التحقق من النتيجة وإصدار الحالة المناسبة
       if (apartments.isEmpty) {
         emit(const AllApartmentsState.empty());
       } else {
         emit(AllApartmentsState.success(apartments));
       }
     } catch (e) {
-      // 4. في حال حدوث خطأ، يتم إصدار حالة الخطأ
       emit(AllApartmentsState.error(e.toString()));
     }
+  }
+
+  Future<void> searchApartments(String query) async {
+    final filterParams = FilterParams(searchQuery: query);
+    await fetchAllApartments(filterParams: filterParams);
   }
 }

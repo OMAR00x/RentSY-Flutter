@@ -11,7 +11,6 @@ class BookingCubit extends Cubit<BookingState> {
     required int apartmentId,
     required DateTime startDate,
     required DateTime endDate,
-    String paymentMethod = 'wallet', // القيمة الافتراضية كما ذكرتها
   }) async {
     emit(const BookingState.loading());
     try {
@@ -19,7 +18,6 @@ class BookingCubit extends Cubit<BookingState> {
         apartmentId: apartmentId,
         startDate: startDate,
         endDate: endDate,
-        paymentMethod: paymentMethod,
       );
       emit(BookingState.success(booking));
     } catch (e) {

@@ -44,15 +44,22 @@ class FilterParams {
     int? minRooms,
     List<int>? amenityIds,
     String? searchQuery,
+    bool resetCity = false,
+    bool resetArea = false,
+    bool resetMinPrice = false,
+    bool resetMaxPrice = false,
+    bool resetMinRooms = false,
+    bool resetAmenities = false,
+    bool resetSearchQuery = false,
   }) {
     return FilterParams(
-      cityId: cityId ?? this.cityId,
-      areaId: areaId ?? this.areaId,
-      minPrice: minPrice ?? this.minPrice,
-      maxPrice: maxPrice ?? this.maxPrice,
-      minRooms: minRooms ?? this.minRooms,
-      amenityIds: amenityIds ?? this.amenityIds,
-      searchQuery: searchQuery ?? this.searchQuery,
+      cityId: resetCity ? null : (cityId ?? this.cityId),
+      areaId: resetArea ? null : (areaId ?? this.areaId),
+      minPrice: resetMinPrice ? null : (minPrice ?? this.minPrice),
+      maxPrice: resetMaxPrice ? null : (maxPrice ?? this.maxPrice),
+      minRooms: resetMinRooms ? null : (minRooms ?? this.minRooms),
+      amenityIds: resetAmenities ? null : (amenityIds ?? this.amenityIds),
+      searchQuery: resetSearchQuery ? null : (searchQuery ?? this.searchQuery),
     );
   }
 }

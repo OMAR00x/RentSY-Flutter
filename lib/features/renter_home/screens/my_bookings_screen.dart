@@ -38,7 +38,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> with SingleTickerPr
   List<BookingModel> _getUpcomingBookings(List<BookingModel> allBookings) {
     final now = DateTime.now();
     return allBookings
-        .where((b) => b.status != 'cancelled' && b.startDate.isAfter(now))
+        .where((b) => (b.status == 'pending' || b.status == 'approved') && b.startDate.isAfter(now))
         .toList();
   }
 
@@ -158,18 +158,6 @@ class _BookingList extends StatelessWidget {
               ),
               if (type == BookingType.past) ...[
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigate to explore apartments
-                    // Navigator.of(context).pushNamed(AppRouter.renterHome); // Or your apartment listing screen
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.charcoal,
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  ),
-                  child: const Text('Explore Apartments', style: TextStyle(color: Colors.white)),
-                ),
               ]
             ],
           ),

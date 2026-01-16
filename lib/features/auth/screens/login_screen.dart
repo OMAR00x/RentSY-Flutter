@@ -173,20 +173,6 @@ class _LoginPageState extends State<LoginPage> {
 
                       const SizedBox(height: 12),
 
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Forget your password?',
-                            style: TextStyle(
-                              color: AppColors.mocha,
-                              fontSize:12,
-                            ),
-                          ),
-                        ),
-                      ),
-
                       const SizedBox(height:30),
 
                       SizedBox(
