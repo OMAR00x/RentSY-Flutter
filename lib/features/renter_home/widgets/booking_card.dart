@@ -6,6 +6,7 @@ import 'package:saved/constants/api_constants.dart';
 import 'package:saved/core/domain/models/booking_model.dart';
 import 'package:saved/features/renter_home/screens/my_bookings_screen.dart';
 import 'package:saved/features/renter_home/cubit/my_bookings_cubit.dart';
+import 'package:saved/features/renter_home/screens/rate_booking_screen.dart';
 
 class BookingCard extends StatelessWidget {
   final BookingModel booking;
@@ -223,7 +224,14 @@ class BookingCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: OutlinedButton(
-                          onPressed: onRate != null ? () => onRate!(booking.id) : null,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RateBookingScreen(booking: booking),
+                              ),
+                            );
+                          },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: AppColors.charcoal,
                             side: const BorderSide(color: AppColors.charcoal),
@@ -235,7 +243,13 @@ class BookingCard extends StatelessWidget {
                       const SizedBox(width: 12),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: onViewDetails != null ? () => onViewDetails!(booking.id) : null,
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/renter-apartment-details',
+                              arguments: booking.apartment,
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.charcoal,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

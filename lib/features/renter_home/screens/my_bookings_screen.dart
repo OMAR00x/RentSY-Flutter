@@ -24,8 +24,6 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> with SingleTickerPr
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    // Fetch bookings when the screen initializes
-    context.read<MyBookingsCubit>().fetchMyBookings();
   }
 
   @override
@@ -34,18 +32,20 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> with SingleTickerPr
     super.dispose();
   }
 
+  void _loadBookings() {
+    context.read<MyBookingsCubit>().fetchMyBookings();
+  }
+
   // Helper functions to categorize bookings
   List<BookingModel> _getUpcomingBookings(List<BookingModel> allBookings) {
-    final now = DateTime.now();
     return allBookings
-        .where((b) => (b.status == 'pending' || b.status == 'approved') && b.startDate.isAfter(now))
+        .where((b) => b.status == 'pending')
         .toList();
   }
 
   List<BookingModel> _getPastBookings(List<BookingModel> allBookings) {
-    final now = DateTime.now();
     return allBookings
-        .where((b) => b.status != 'cancelled' && b.endDate.isBefore(now))
+        .where((b) => b.status == 'approved')
         .toList();
   }
 
@@ -55,6 +55,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
+    _loadBookings();
     return Scaffold(
       backgroundColor: AppColors.oat,
       appBar: AppBar(
