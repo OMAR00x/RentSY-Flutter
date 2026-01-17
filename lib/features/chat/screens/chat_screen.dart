@@ -30,6 +30,12 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     context.read<ChatCubit>().loadMessages(widget.apartmentId);
     
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) {
+        context.read<ChatCubit>().markMessagesAsRead(widget.apartmentId);
+      }
+    });
+    
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       if (message.data['type'] == 'new_message' && 
           message.data['apartment_id'] == widget.apartmentId.toString()) {

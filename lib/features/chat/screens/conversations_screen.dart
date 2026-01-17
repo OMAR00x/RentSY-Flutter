@@ -92,8 +92,8 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
                                   ),
                                 )
                               : null,
-                          onTap: () {
-                            Navigator.pushNamed(
+                          onTap: () async {
+                            await Navigator.pushNamed(
                               context,
                               AppRouter.chat,
                               arguments: {
@@ -102,6 +102,8 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
                                 'otherUserName': conversation.otherUserName,
                               },
                             );
+                            await Future.delayed(const Duration(milliseconds: 500));
+                            _loadConversations();
                           },
                         );
                       },

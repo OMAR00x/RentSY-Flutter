@@ -28,8 +28,8 @@ class Message {
       toUserId: json['to_user_id'],
       apartmentId: json['apartment_id'],
       body: json['body'],
-      createdAt: DateTime.parse(json['created_at']).toLocal(),
-      readAt: json['read_at'] != null ? DateTime.parse(json['read_at']).toLocal() : null,
+      createdAt: DateTime.parse(json['created_at']).add(const Duration(hours: 2)),
+      readAt: json['read_at'] != null ? DateTime.parse(json['read_at']).add(const Duration(hours: 2)) : null,
       fromUser: json['from_user'] != null ? User.fromJson(json['from_user']) : null,
       toUser: json['to_user'] != null ? User.fromJson(json['to_user']) : null,
     );
