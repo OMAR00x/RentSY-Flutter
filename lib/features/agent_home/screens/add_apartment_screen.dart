@@ -1,4 +1,3 @@
-// lib/features/agent_home/screens/add_apartment_screen.dart
 
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class _AddApartmentScreenState extends State<AddApartmentScreen> {
   @override
   void initState() {
     super.initState();
-    // --- ✨ 1. طلب بيانات الفورم (المدن والميزات) عند فتح الشاشة ---
+   
     context.read<ApartmentFormCubit>().fetchFormData();
   }
 
@@ -40,7 +39,7 @@ class _AddApartmentScreenState extends State<AddApartmentScreen> {
         title: const Text(AppStrings.addApartmentTitle, style: TextStyle(color: AppColors.charcoal)),
         centerTitle: true,
       ),
-      // --- ✨ 2. استخدام BlocBuilder لعرض الواجهة حسب حالة جلب البيانات ---
+      
       body: BlocBuilder<ApartmentFormCubit, ApartmentFormState>(
         builder: (context, formState) {
           return formState.when(
@@ -59,7 +58,7 @@ class _AddApartmentScreenState extends State<AddApartmentScreen> {
                 ],
               ),
             ),
-            // --- ✨ 3. عند النجاح، نبني الفورم مع تمرير البيانات الحقيقية ---
+           
             success: (cities, amenities, areas, isLoadingAreas) {
               return _AddApartmentForm(
                 availableCities: cities,
@@ -75,7 +74,7 @@ class _AddApartmentScreenState extends State<AddApartmentScreen> {
   }
 }
 
-// --- ✨ 4. فصل الفورم إلى Widget منفصل لسهولة القراءة والتنظيم ---
+
 class _AddApartmentForm extends StatefulWidget {
   final List<CityModel> availableCities;
   final List<AmenityModel> availableAmenities;
@@ -212,7 +211,7 @@ class _AddApartmentFormState extends State<_AddApartmentForm> {
                     validator: (v) => v!.isEmpty ? 'Description is required' : null,
                   ),
 
-                  // --- ✨ 5. بناء Dropdown المدن من البيانات الديناميكية ---
+                  
                   _buildLabel('City'),
                   DropdownButtonFormField<CityModel>(
                     initialValue: _selectedCity,
@@ -226,7 +225,7 @@ class _AddApartmentFormState extends State<_AddApartmentForm> {
                         _selectedArea = null;
                       });
                       if (city != null) {
-                        // ✨ 7. استدعاء Cubit لجلب المناطق
+                       
                         context.read<ApartmentFormCubit>().fetchAreasForCity(city.id);
                       }
                     },
@@ -303,7 +302,7 @@ class _AddApartmentFormState extends State<_AddApartmentForm> {
                   ),
 
                   const SizedBox(height: 20),
-                  // --- ✨ 6. بناء Chips الميزات من البيانات الديناميكية ---
+                  
                   _buildLabel(AppStrings.featuresLabel),
                   Wrap(
                     spacing: 8,

@@ -4,14 +4,13 @@ import 'package:saved/core/domain/models/booking_model.dart';
 import 'package:saved/core/domain/models/filter_params.dart';
 import 'package:saved/core/domain/models/search_history_model.dart';
 import 'package:saved/core/services/api_client.dart';
+import 'dart:developer'; // Import for logging
 
 class RenterRepository {
-  // ✨ 2. استخدام نسخة Dio من العميل المركزي
   final Dio _dio = ApiClient().dio;
 
   Future<List<ApartmentModel>> getAllApartments({FilterParams? filterParams}) async {
     const String endpoint = '/apartments';
-
     try {
       final queryParams = <String, dynamic>{};
       if (filterParams != null) {
@@ -45,12 +44,12 @@ class RenterRepository {
       throw Exception('An unexpected error occurred: $e');
     }
   }
+
   Future<bool> toggleFavoriteApartment(int apartmentId) async {
     final String endpoint = '/apartments/$apartmentId/favorite';
     try {
       final response = await _dio.post(endpoint);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // نتوقع أن الـ API سيرجع {"is_favorite": true/false}
         return response.data['is_favorite'] ?? false;
       } else {
         throw Exception('Failed to toggle favorite status: Unexpected status code ${response.statusCode}');
@@ -63,7 +62,6 @@ class RenterRepository {
     }
   }
 
-  // ✨ جديد: دالة لجلب الشقق المفضلة للمستأجر
   Future<List<ApartmentModel>> getFavoriteApartments() async {
     const String endpoint = '/favorites';
     try {
@@ -88,6 +86,7 @@ class RenterRepository {
     required int apartmentId,
     required DateTime startDate,
     required DateTime endDate,
+    required String paymentMethod, // ✨ Added paymentMethod
   }) async {
     const String endpoint = '/bookings';
     try {
@@ -97,22 +96,24 @@ class RenterRepository {
           'apartment_id': apartmentId,
           'start_date': startDate.toIso8601String().split('T').first,
           'end_date': endDate.toIso8601String().split('T').first,
+          'payment_method': paymentMethod, // ✨ Included paymentMethod
         },
       );
-
-      if (response.statusCode == 201) { // 201 Created is typical for successful creation
-        // الـ API يرجع كائن BookingModel مباشرة تحت مفتاح 'data'
+      if (response.statusCode == 201) {
         return BookingModel.fromJson(response.data['data']);
       } else {
         throw Exception('Failed to create booking: Unexpected status code ${response.statusCode}');
       }
     } on DioException catch (e) {
+      log('DioException in createBooking: ${e.response?.data ?? e.message}'); // ✨ Added detailed logging
       final errorMessage = e.response?.data?['message'] ?? 'Failed to create booking. Please try again.';
       throw Exception(errorMessage);
     } catch (e) {
+      log('Unexpected error in createBooking: $e'); // ✨ Added logging for generic errors
       throw Exception('An unexpected error occurred: $e');
     }
   }
+
   Future<List<BookingModel>> getMyBookings() async {
     const String endpoint = '/my-bookings'; // The user provided this endpoint
     try {
@@ -132,6 +133,7 @@ class RenterRepository {
       throw Exception('An unexpected error occurred: $e');
     }
   }
+
   Future<BookingModel> rescheduleBooking({
     required int bookingId,
     required DateTime newStartDate,
@@ -146,9 +148,7 @@ class RenterRepository {
           'end_date': newEndDate.toIso8601String().split('T').first,
         },
       );
-      if (response.statusCode == 200) { // Assuming 200 OK for successful update
-        // The API returns the updated booking directly, according to common practices.
-        // If it returns a different structure, adjust this part.
+      if (response.statusCode == 200) {
         return BookingModel.fromJson(response.data);
       } else {
         throw Exception('Failed to reschedule booking: Unexpected status code ${response.statusCode}');
@@ -166,7 +166,7 @@ class RenterRepository {
     final String endpoint = '/bookings/$bookingId';
     try {
       final response = await _dio.delete(endpoint);
-      if (response.statusCode != 200 && response.statusCode != 204) { // 200 OK or 204 No Content for successful delete
+      if (response.statusCode != 200 && response.statusCode != 204) {
         throw Exception('Failed to cancel booking: Unexpected status code ${response.statusCode}');
       }
     } on DioException catch (e) {
@@ -209,4 +209,3 @@ class RenterRepository {
     }
   }
 }
-

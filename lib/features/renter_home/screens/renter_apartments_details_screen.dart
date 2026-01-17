@@ -27,20 +27,23 @@ class RenterApartmentDetailsScreen extends StatelessWidget {
             expandedHeight: 280,
             pinned: true,
             stretch: true,
+            primary: true, // تأكد من أن هذا صحيح للسماح بـ padding تلقائي لأيقونات الـ app bar
             backgroundColor: AppColors.taupe,
             iconTheme: const IconThemeData(color: Colors.white),
             flexibleSpace: FlexibleSpaceBar(
               stretchModes: const [StretchMode.zoomBackground],
-              background: PageView.builder(
-                itemCount: apartment.images.length,
-                itemBuilder: (_, index) {
-                  return CachedNetworkImage(
-                    imageUrl: getFullImageUrl(apartment.images[index].url),
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => const LoadingWidget(),
-                    errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.white),
-                  );
-                },
+              background: SafeArea(
+                child: PageView.builder(
+                  itemCount: apartment.images.length,
+                  itemBuilder: (_, index) {
+                    return CachedNetworkImage(
+                      imageUrl: getFullImageUrl(apartment.images[index].url),
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => const LoadingWidget(),
+                      errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.white),
+                    );
+                  },
+                ),
               ),
             ),
             actions: [

@@ -39,11 +39,11 @@ class AgentBookingRequestsCubit extends Cubit<AgentBookingRequestsState> {
     }
   }
 
-  // ✨ دالة واحدة لتحديث الحالة
+  
   Future<void> updateBookingStatus(int bookingId, String status) async {
     try {
       await _agentRepository.updateBookingStatus(bookingId, status);
-      await fetchBookingRequests(); // إعادة جلب الطلبات لتحديث الواجهة
+      await fetchBookingRequests(); 
     } catch (e) {
       emit(AgentBookingRequestsState.error(e.toString()));
     }

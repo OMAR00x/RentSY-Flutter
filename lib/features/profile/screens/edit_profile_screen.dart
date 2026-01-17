@@ -6,7 +6,7 @@ import 'package:saved/constants/api_constants.dart';
 import 'package:saved/constants/app_colors.dart';
 import 'package:saved/constants/app_strings.dart';
 import 'package:saved/core/domain/models/user.dart';
-import 'package:saved/core/widgets/loading_widget.dart'; // ✨ تم استخدام الويدجت الخاصة بك
+import 'package:saved/core/widgets/loading_widget.dart'; 
 import 'package:saved/features/profile/cubit/profile_cubit.dart';
 import 'package:saved/features/profile/cubit/profile_state.dart';
 
@@ -74,7 +74,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: BlocListener<ProfileCubit, ProfileState>(
         listener: (context, state) {
          state.whenOrNull(
-            // عند نجاح التحديث
+            
             updateSuccess: (_) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Profile Updated Successfully!'), backgroundColor: Colors.green),
@@ -139,16 +139,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               const SizedBox(height: 40),
               
-              // ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
-              // ✨            الحل النهائي هنا            ✨
-              // ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+              
               BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (context, state) {
-                  // استخدام mapOrNull للتحقق من الحالة بطريقة آمنة
+                  
                   return state.mapOrNull(
-                    // في حالة "جاري التحديث"، نعرض الويدجت الخاصة بك
+                    
                     updateInProgress: (_) => const LoadingWidget(),
-                  ) ?? // '??' تعني: إذا كانت الحالة أي شيء آخر، اعرض ما يلي
+                  ) ?? 
                   SizedBox(
                     width: double.infinity,
                     height: 55,

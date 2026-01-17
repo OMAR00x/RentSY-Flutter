@@ -1,4 +1,4 @@
-// lib/features/profile/screens/profile_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saved/constants/api_constants.dart';
@@ -105,12 +105,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             '${user.firstName} ${user.lastName}',
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 10), // Added spacing
+          const SizedBox(height: 10), 
           Container(
-            // Display wallet balance directly
+            
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: AppColors.mocha.withOpacity(0.1),
+              color: AppColors.mocha.withValues(alpha:0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          // Removed Wallet Tile
+          
           _profileTile(
             icon: Icons.language,
             title: AppStrings.language,

@@ -18,9 +18,10 @@ class HomeHeader extends StatelessWidget {
         Text(
           AppStrings.tenantHello,
           style: GoogleFonts.lato(
-            fontSize: 26,
-            fontWeight: FontWeight.w700,
+            fontSize: 19,
+            fontWeight: FontWeight.w400,
             color: AppColors.charcoal,
+            fontStyle: FontStyle.italic
           ),
         ),
         Stack(

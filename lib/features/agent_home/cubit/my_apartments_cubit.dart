@@ -29,6 +29,7 @@ class MyApartmentsCubit extends Cubit<MyApartmentsState> {
       await _agentRepository.deleteApartment(apartmentId);
       await fetchMyApartments();
     } catch (e) {
+      //catch error 
     }
   }
 

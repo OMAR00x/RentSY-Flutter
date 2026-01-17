@@ -1,4 +1,4 @@
-// lib/core/domain/models/amenity_model.dart
+
 
 class AmenityModel {
   final int id;
@@ -8,7 +8,7 @@ class AmenityModel {
 
   factory AmenityModel.fromJson(Map<String, dynamic> json) {
     return AmenityModel(
-      // --- ✨ إصلاح: تحويل الـ ID إلى رقم بأمان ---
+     
       id: int.tryParse(json['id'].toString()) ?? 0,
       name: json['name'] ?? 'Unknown Amenity',
     );

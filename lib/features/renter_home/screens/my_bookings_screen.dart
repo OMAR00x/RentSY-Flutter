@@ -1,4 +1,5 @@
 // lib/features/renter_home/screens/my_bookings_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saved/constants/app_colors.dart';
@@ -6,7 +7,9 @@ import 'package:saved/constants/app_strings.dart';
 import 'package:saved/core/domain/models/booking_model.dart';
 import 'package:saved/features/renter_home/cubit/my_bookings_cubit.dart';
 import 'package:saved/features/renter_home/cubit/my_bookings_state.dart';
-import 'package:saved/features/renter_home/widgets/booking_card.dart'; // We will create this next
+import 'package:saved/features/renter_home/widgets/booking_card.dart';
+// ✨ Added import for ProfileCubit
+import 'package:saved/features/profile/cubit/profile_cubit.dart';
 
 enum BookingType { upcoming, past, cancelled }
 
@@ -90,6 +93,10 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> with SingleTickerPr
                 SnackBar(content: Text(message), backgroundColor: Colors.red),
               );
             },
+            // ✨ Added: Refresh user profile when MyBookingsState is success (after any booking action)
+            success: (bookings) {
+              context.read<ProfileCubit>().fetchProfile();
+            }
           );
         },
         builder: (context, state) {
@@ -121,7 +128,6 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> with SingleTickerPr
 class _BookingList extends StatelessWidget {
   final List<BookingModel> bookings;
   final BookingType type;
-
   const _BookingList({required this.bookings, required this.type});
 
   @override
@@ -165,6 +171,7 @@ class _BookingList extends StatelessWidget {
         ),
       );
     }
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: bookings.length,
@@ -176,10 +183,8 @@ class _BookingList extends StatelessWidget {
             context.read<MyBookingsCubit>().cancelBooking(bookingId: bookingId);
           },
           onReschedule: (bookingId, startDate, endDate) {
-            // Implement reschedule dialog/screen
             _showRescheduleDialog(context, bookingId, startDate, endDate);
           },
-          // onRate, onViewDetails would be implemented similarly
         );
       },
     );
@@ -194,7 +199,7 @@ class _BookingList extends StatelessWidget {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: const Text('Reschedule Booking'),
-          content: StatefulBuilder( // Use StatefulBuilder to update content inside dialog
+          content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -208,10 +213,10 @@ class _BookingList extends StatelessWidget {
                         lastDate: DateTime.now().add(const Duration(days: 365)),
                       );
                       if (pickedDate != null) {
-                        setState(() { // Update dialog's state
+                        setState(() {
                           newStartDate = pickedDate;
                           if (newEndDate != null && newEndDate!.isBefore(newStartDate!)) {
-                            newEndDate = newStartDate!.add(const Duration(days: 1)); // Ensure end date is after start
+                            newEndDate = newStartDate!.add(const Duration(days: 1));
                           }
                         });
                       }
@@ -223,14 +228,14 @@ class _BookingList extends StatelessWidget {
                       final pickedDate = await showDatePicker(
                         context: context,
                         initialDate: newEndDate,
-                        firstDate: newStartDate ?? DateTime.now(), // End date must be after start date
+                        firstDate: newStartDate ?? DateTime.now(),
                         lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
                       );
                       if (pickedDate != null) {
-                        setState(() { // Update dialog's state
+                        setState(() {
                           newEndDate = pickedDate;
                           if (newStartDate != null && newStartDate!.isAfter(newEndDate!)) {
-                            newStartDate = newEndDate!.subtract(const Duration(days: 1)); // Ensure start date is before end
+                            newStartDate = newEndDate!.subtract(const Duration(days: 1));
                           }
                         });
                       }

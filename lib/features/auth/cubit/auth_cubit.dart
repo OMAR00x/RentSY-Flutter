@@ -12,13 +12,13 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this._authRepository) : super(const AuthState.initial());
 
-  // --- ✨ 1. الدالة الجديدة للتحقق من حالة المصادقة عند بدء التشغيل ---
+ 
   Future<void> checkAuthStatus() async {
     try {
       final user = await _authRepository.getAuthenticatedUser();
       if (user != null) {
         currentUser = user;
-        // من الجيد التحقق من حالة الحساب مرة أخرى هنا
+       
         switch (user.status) {
           case 'approved':
             emit(AuthState.authenticated(user));
@@ -36,7 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(const AuthState.unauthenticated());
       }
     } catch (e) {
-      // في حال حدوث أي خطأ غير متوقع، نعتبر المستخدم غير مسجل دخوله
+      
       emit(const AuthState.unauthenticated());
     }
   }

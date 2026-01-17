@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:saved/core/domain/models/user.dart';
 import 'package:saved/core/services/api_client.dart';
-import 'package:saved/core/services/notidication_service.dart'; // ✨ 1. استيراد العميل الجديد
+import 'package:saved/core/services/notidication_service.dart'; 
 
 class AuthRepository {
-  // ✨ 2. استخدام نسخة Dio من العميل المركزي
+  
   final Dio _dio = ApiClient().dio;
   final _storage = const FlutterSecureStorage();
 
@@ -17,7 +17,7 @@ class AuthRepository {
       final String? fcmToken = await NotificationService.getFcmToken();
       log(fcmToken.toString());
       final response = await _dio.post(
-        '/login', // المسار فقط، لأن العنوان الأساسي موجود في العميل
+        '/login', 
         data: {
           'phone': mobileNumber,
           'password': password,
@@ -32,7 +32,7 @@ class AuthRepository {
         userData['token'] = token;
         final user = UserModel.fromJson(userData);
 
-        // ✨ استخدام نفس المفتاح الذي استخدمناه في العميل
+        
         await _storage.write(key: 'auth_token', value: user.token);
         debugPrint("Login successful. Token saved for user: ${user.firstName}");
 
@@ -51,12 +51,12 @@ class AuthRepository {
   }
 
   Future<UserModel?> getAuthenticatedUser() async {
-    // التوكن سيتم إضافته تلقائياً بواسطة الـ Interceptor
+    
     final token = await getToken();
     if (token == null) return null;
 
     try {
-      // ✨ 3. الطلب أصبح أبسط بكثير
+      
       final response = await _dio.get('/profile');
 
       final userData = response.data as Map<String, dynamic>;
@@ -68,7 +68,7 @@ class AuthRepository {
       return user;
     } catch (e) {
       debugPrint("Failed to fetch user with token. Error: $e");
-      // await logout(); // يفضل عدم تسجيل الخروج تلقائياً هنا
+      
       return null;
     }
   }

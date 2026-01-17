@@ -6,8 +6,8 @@ class ImageModel {
   final String type;
   final bool isMain;
   final int? order;
-  final DateTime? createdAt; // جعلته اختيارياً للأمان
-  final DateTime? updatedAt; // جعلته اختيارياً للأمان
+  final DateTime? createdAt; 
+  final DateTime? updatedAt; 
 
   ImageModel({
     required this.id,
@@ -23,7 +23,7 @@ class ImageModel {
 
   factory ImageModel.fromJson(Map<String, dynamic> json) {
     return ImageModel(
-      // --- ✨ إصلاح: تحويل كل الحقول الرقمية بأمان ---
+      
       id: int.tryParse(json['id'].toString()) ?? 0,
       imageableId: int.tryParse(json['imageable_id'].toString()) ?? 0,
       order: json['order'] != null ? int.tryParse(json['order'].toString()) : null,
@@ -33,7 +33,7 @@ class ImageModel {
       type: json['type'] ?? '',
       isMain: json['is_main'] ?? false,
 
-      // --- إصلاح: التعامل مع التواريخ بأمان ---
+      
       createdAt: json['created_at'] != null ? DateTime.tryParse(json['created_at']) : null,
       updatedAt: json['updated_at'] != null ? DateTime.tryParse(json['updated_at']) : null,
     );

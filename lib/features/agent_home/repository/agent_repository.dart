@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:image_picker/image_picker.dart'; // تأكد من وجود هذا الاستيراد إذا كنت تستخدمه
+import 'package:image_picker/image_picker.dart'; 
 import 'package:saved/core/domain/models/amenity_model.dart';
 import 'package:saved/core/domain/models/apartment_model.dart';
 import 'package:saved/core/domain/models/area_model.dart';
@@ -19,7 +19,7 @@ class AgentRepository {
       final List amenitiesJson = response.data as List;
       return amenitiesJson.map((json) => AmenityModel.fromJson(json)).toList();
     } on DioException catch (e) {
-      log('DioException in getAmenities: ${e.response?.data ?? e.message}'); // ✨ إضافة طباعة مفصلة
+      log('DioException in getAmenities: ${e.response?.data ?? e.message}'); 
       throw Exception(
         e.response?.data['message'] ?? 'Failed to load amenities',
       );
@@ -33,7 +33,7 @@ class AgentRepository {
       final List citiesJson = response.data as List;
       return citiesJson.map((json) => CityModel.fromJson(json)).toList();
     } on DioException catch (e) {
-      log('DioException in getCities: ${e.response?.data ?? e.message}'); // ✨ إضافة طباعة مفصلة
+      log('DioException in getCities: ${e.response?.data ?? e.message}'); 
       throw Exception(e.response?.data['message'] ?? 'Failed to load cities');
     }
   }
@@ -45,7 +45,7 @@ class AgentRepository {
       final List areasJson = response.data as List;
       return areasJson.map((json) => AreaModel.fromJson(json)).toList();
     } on DioException catch (e) {
-      log('DioException in getAreasForCity: ${e.response?.data ?? e.message}'); // ✨ إضافة طباعة مفصلة
+      log('DioException in getAreasForCity: ${e.response?.data ?? e.message}'); 
       throw Exception(e.response?.data['message'] ?? 'Failed to load areas');
     }
   }
@@ -65,14 +65,14 @@ class AgentRepository {
         );
       }
     } on DioException catch (e) {
-      log('DioException in getMyApartments: ${e.response?.data ?? e.message}'); // ✨ إضافة طباعة مفصلة
+      log('DioException in getMyApartments: ${e.response?.data ?? e.message}'); 
       throw Exception(
         e.response?.data['message'] ?? 'Failed to connect to the server.',
       );
     }
   }
 
-  // ✨ تعديل دالة جلب طلبات الحجز للمؤجر
+  
   Future<List<BookingModel>> getAgentBookingRequests({int? apartmentId}) async {
     const String endpoint = '/apartment-bookings';
     try {
@@ -108,13 +108,13 @@ class AgentRepository {
     }
   }
 
-  // ✨ التعديل هنا: استخدام PUT request والمسار الجديد والـ body الصحيح
+  
   Future<BookingModel> updateBookingStatus(int bookingId, String status) async {
-    final String endpoint = '/bookings/$bookingId/status'; // المسار الصحيح
+    final String endpoint = '/bookings/$bookingId/status'; 
     try {
-      final response = await _dio.put( // ✨ استخدام PUT
+      final response = await _dio.put(
         endpoint,
-        data: {'status': status}, // ✨ إرسال الحالة في الـ body
+        data: {'status': status}, 
       );
       if (response.statusCode == 200) {
         return BookingModel.fromJson(response.data['data']);
@@ -178,7 +178,7 @@ class AgentRepository {
         throw Exception(response.data['message'] ?? 'Failed to add apartment');
       }
     } on DioException catch (e) {
-      log('DioException in addApartment: ${e.response?.data ?? e.message}'); // ✨ إضافة طباعة مفصلة
+      log('DioException in addApartment: ${e.response?.data ?? e.message}'); 
       throw Exception(e.response?.data['message'] ?? 'Server error on add');
     }
   }
@@ -188,7 +188,7 @@ class AgentRepository {
     try {
       await _dio.delete(endpoint);
     } on DioException catch (e) {
-      log('DioException in deleteApartment: ${e.response?.data ?? e.message}'); // ✨ إضافة طباعة مفصلة
+      log('DioException in deleteApartment: ${e.response?.data ?? e.message}'); 
       throw Exception(e.response?.data['message'] ?? 'Server error on delete');
     }
   }

@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saved/constants/app_colors.dart';
 import 'package:saved/constants/app_strings.dart';
 import 'package:saved/core/routing/app_router.dart';
-import 'package:saved/core/widgets/loading_widget.dart'; // ✨ 1. استيراد الويدجت الخاصة بك
+import 'package:saved/core/widgets/loading_widget.dart'; 
 import 'package:saved/features/agent_home/cubit/my_apartments_cubit.dart';
 import 'package:saved/features/agent_home/cubit/my_apartments_state.dart';
 import '../widgets/apartment_card.dart';
@@ -46,9 +47,9 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppStrings.agentHomeTitle, style: TextStyle(color: primaryText, fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(AppStrings.agentHomeTitle.tr(), style: TextStyle(color: primaryText, fontSize: 24, fontWeight: FontWeight.bold)),
             const SizedBox(height: 3),
-            Text(AppStrings.agentHomeSubtitle, style: TextStyle(color: secondaryText, fontSize: 14)),
+            Text(AppStrings.agentHomeSubtitle.tr(), style: TextStyle(color: secondaryText, fontSize: 14)),
           ],
         ),
         actions: [
@@ -77,7 +78,7 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
       body: BlocBuilder<MyApartmentsCubit, MyApartmentsState>(
         builder: (context, state) {
           return state.when(
-            // ✨ 2. استخدام الويدجت الخاصة بك هنا
+           
             initial: () => const LoadingWidget(),
             loading: () => const LoadingWidget(),
             error: (message) => _buildErrorState(context, message),
@@ -129,24 +130,22 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
         backgroundColor: AppColors.oat,
         selectedItemColor: primaryText,
         unselectedItemColor: secondaryText,
-        // ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
-        // ✨            الحل النهائي هنا            ✨
-        // ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+        
         onTap: (index) {
-          // إذا ضغط المستخدم على "Home" (index 0)، لا تفعل شيئاً لأننا هنا بالفعل
+          
           if (index == 0) return;
 
-          // إذا ضغط على "Requests" (index 1)، انتقل إلى صفحة الطلبات
+          
           if (index == 1) {
             Navigator.pushNamed(context, AppRouter.bookingRequests);
           }
 
-          // Chat - يفتح صفحة المحادثات
+          
           if (index == 2) {
             Navigator.pushNamed(context, AppRouter.conversations);
           }
 
-          // ✨ إذا ضغط على "Profile" (index 3)، انتقل إلى شاشة البروفايل
+          
           if (index == 3) {
             Navigator.pushNamed(context, AppRouter.profile);
           }
@@ -161,7 +160,7 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
     );
   }
 
-  // ... (باقي الدوال المساعدة كما هي بدون تغيير)
+  
   Widget _buildErrorState(BuildContext context, String message) {
     return Center(
       child: Padding(

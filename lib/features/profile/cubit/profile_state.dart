@@ -12,7 +12,7 @@ abstract class ProfileState with _$ProfileState {
   
   const factory ProfileState.updateInProgress() = _UpdateInProgress;
   
-  // ✨ 1. حالة جديدة مخصصة لنجاح التحديث
+  
   const factory ProfileState.updateSuccess(UserModel updatedUser) = _UpdateSuccess;
   
   const factory ProfileState.updateFailure(String message) = _UpdateFailure;

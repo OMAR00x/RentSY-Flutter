@@ -9,27 +9,26 @@ class ApiClient {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          // جلب التوكن من التخزين الآمن
+          
           const storage = FlutterSecureStorage();
-          final token = await storage.read(key: 'auth_token'); // ✨ استخدام المفتاح الصحيح
-
-          // إذا كان التوكن موجوداً، أضفه إلى الهيدر
+          final token = await storage.read(key: 'auth_token'); 
+         
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
           }
           options.headers['Accept'] = 'application/json';
 
-          // استكمل الطلب
+         
           return handler.next(options);
         },
         onError: (DioException e, handler) {
-          // يمكنك التعامل مع الأخطاء العامة هنا (مثل انتهاء صلاحية التوكن)
+          
           return handler.next(e);
         },
       ),
     );
   }
 
-  // دالة getter للوصول إلى نسخة Dio من خارج الكلاس
+  
   Dio get dio => _dio;
 }

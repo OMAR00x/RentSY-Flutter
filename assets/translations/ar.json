@@ -1,0 +1,278 @@
+{
+  "login": "تسجيل الدخول",
+  "welcome_back": "أهلاً بعودتك! أدخل معلوماتك\nللبدء",
+
+  "mobile_number": "رقم الهاتف",
+  "enter_mobile_number": "أدخل رقم هاتفك",
+  "enter_valid_number": "أدخل رقمًا صالحًا",
+
+  "password": "كلمة المرور",
+  "enter_password": "أدخل كلمة المرور",
+  "password_too_short": "كلمة المرور قصيرة جدًا",
+
+  "forget_password": "هل نسيت كلمة المرور؟",
+
+  "dont_have_account": "ليس لديك حساب؟",
+  "register": "إنشاء حساب",
+
+  "pending_approval": "حسابك قيد المراجعة",
+  "login_error": "فشل تسجيل الدخول",
+
+  "account_type_title": "اختر نوع الحساب",
+
+  "renter_title": "مستأجر",
+  "renter_subtitle": "ابحث عن منزلك المثالي واستأجره بسهولة",
+
+  "owner_title": "مالك",
+  "owner_subtitle": "أدر عقاراتك وقم بعرضها بكل سهولة",
+
+  "already_have_account": "لديك حساب مسبقًا؟ ",
+   "account_created_successfully": "تم إنشاء الحساب بنجاح",
+  "account_pending_review": "حسابك الآن قيد المراجعة. سيتم إعلامك بمجرد موافقة المسؤول.",
+  "back_to_login": "العودة لتسجيل الدخول",
+
+
+  "edit_profile_title": "تعديل الملف الشخصي",
+  "update_profile_photo": "تحديث صورة الملف الشخصي",
+  "first_name": "الاسم الأول",
+  "last_name": "اسم العائلة",
+  "password_hint": "أدخل كلمة المرور الخاصة بك",
+  "save_changes": "حفظ التغييرات",
+  "profile_updated_successfully": "تم تحديث الملف الشخصي بنجاح!",
+
+
+   "profile_title": "الملف الشخصي",
+  "edit_profile": "تعديل الملف الشخصي",
+  "language": "اللغة",
+  "theme": "الوضع",
+  "logout": "تسجيل الخروج",
+
+  "phone": "الهاتف",
+  "birth_date": "تاريخ الميلاد",
+  
+  "confirm_password": "تأكيد كلمة المرور",
+  "personal_photo": "الصورة الشخصية",
+  "id_front": "صورة الهوية (الجهة الأمامية)",
+  "id_back": "صورة الهوية (الجهة الخلفية)",
+  "create_account": "إنشاء الحساب",
+  "required_field": "حقل مطلوب",
+  "min_8_characters": "الحد الأدنى 8 أحرف",
+  "passwords_do_not_match": "كلمتا المرور غير متطابقتين",
+  "please_select_all_images": "يرجى اختيار كامل الصور المطلوبة",
+
+
+
+  "welcome_title": "مرحبا بكم في سيفد",
+  "welcome_subtitle": "اعثر على منزلك المثالي أو أدر ممتلكاتك بسهولة",
+  "next": "التالي",
+  "skip": "تخطي",
+  "location_prompt": "اختر المواقع المفضلة لديك",
+  "done": "تم",
+
+
+  "logo_missing": "اللوجو مفقود فيnassets/images/logo.png",
+  "splash_pending": "حسابك قيد الانتظار للموافقة",
+  "splash_rejected": "تم رفض حسابك",
+  "splash_error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+
+
+  "appName": "RentSY",
+
+  "onboardingTitle": "مرحبا بك في \n RentSY",
+  "onboardingSub": "ابدأ البحث عن شقتك المثالية،\nمع تصاميم فاخرة، ومرافق متميزة\nوموقع مميز.",
+  "getStarted": "ابدأ الآن",
+  "popularLocations": "المناطق الشهيرة",
+
+  "accountTypeTitle": "كيف ستستخدم RentSY",
+  "renterTitle": "أنا مستأجر",
+  "renterSubtitle": "ابحث عن منزلك القادم",
+  "ownerTitle": "أنا مالك",
+  "ownerSubtitle": "أضف وأدير عقارك",
+  "alreadyHaveAccount": "هل لديك حساب؟ ",
+
+
+  "welcomeBack": "مرحبا بعودتك",
+  "loginToFindHome": "سجّل الدخول للعثور على منزلك القادم",
+  "mobileNumber": "رقم الهاتف",
+
+  "dontHaveAccount": "ليس لديك حساب؟ ",
+  "signUp": "إنشاء حساب",
+
+  "createYourAccount": "أنشئ حسابك",
+  "letsGetYouSetUp": "لنبدأ بإعداد حسابك",
+  "firstName": "الاسم الأول",
+  "lastName": "اسم العائلة",
+
+  "birthDate": "تاريخ الميلاد",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "verificationDocs": "وثائق التحقق",
+  "personalPhoto": "صورة شخصية (أفاتار)",
+  "idFront": "واجهة الهوية",
+  "idBack": "خلفية الهوية",
+  "noImageSelected": "لم يتم اختيار صورة",
+  "createAccount": "إنشاء حساب",
+
+  "accountCreatedSuccessfully": "تم إنشاء الحساب بنجاح",
+  "accountPendingReview": "حسابك الآن قيد المراجعة. سيتم إعلامك بعد موافقة المسؤول.",
+  "backToLogin": "العودة لتسجيل الدخول",
+
+  "agentHomeTitle": "الرئيسية",
+  "agentHomeSubtitle": "إدارة عقاراتك",
+  "searchYourApartments": "ابحث عن شققك",
+
+  "aboutThisPlace": "عن هذا المكان",
+  "hostedBy": "مقدم من",
+  "bookNow": "احجز الآن",
+
+  "addApartmentTitle": "إضافة شقة جديدة",
+  "apartmentNameLabel": "اسم الشقة",
+  "apartmentNameHint": "مثال: The Sunny Loft",
+  "descriptionLabel": "الوصف",
+  "descriptionHint": "صف أفضل ميزات شقتك...",
+  "addressLabel": "العنوان",
+  "addressHint": "أدخل العنوان الكامل",
+  "numRoomsLabel": "عدد الغرف",
+  "pricePerNightLabel": "السعر لكل ليلة",
+  "priceHint": "مثال: 150",
+  "featuresLabel": "المميزات",
+  "addPhotosLabel": "أضف صوراً لعقارك",
+  "uploadHint": "اضغط للتحميل أو اسحب الملفات",
+  "saveListing": "حفظ القائمة",
+
+  "bookingRequestsTitle": "طلبات الحجز",
+  "noNewRequests": "لا توجد طلبات جديدة",
+  "noNewRequestsSubtitle": "لقد راجعت جميع الطلبات المعلقة.\nتحقق لاحقاً!",
+  "reject": "رفض",
+  "accept": "قبول",
+
+  "searchApartmentHint": "ابحث عن شققك...",
+  "searchPlaceholder": "أدخل اسم أو عنوان للعثور على شقة.",
+
+  "favorites": "المفضلة",
+  "myBookings": "حجوزاتي",
+  "noFavoritesYet": "لا توجد شقق في قائمة المفضلة بعد.",
+
+  "tenantHello": "مرحباً، المستأجر",
+  "tenantSearchHint": "ابحث عن الموقع أو الاسم...",
+  "perNight": " / الليلة",
+
+  "profileTitle": "الملف الشخصي",
+  "editProfile": "تعديل الملف الشخصي",
+  
+
+  "editProfileTitle": "تعديل الملف الشخصي",
+  "updateProfilePhoto": "تحديث صورة الملف الشخصي",
+  "passwordHint": "********",
+  "saveChanges": "حفظ التغييرات",
+
+
+  "add_apartment_title": "إضافة شقة جديدة",
+
+  "title_required": "العنوان مطلوب",
+  "description_required": "الوصف مطلوب",
+  "address_required": "العنوان مطلوب",
+  "required": "مطلوب",
+
+  "city": "المدينة",
+  "select_city": "اختر مدينة",
+  "city_required": "المدينة مطلوبة",
+
+  "area": "المنطقة",
+  "select_area": "اختر منطقة",
+  "select_city_first": "اختر المدينة أولاً",
+  "no_areas_found": "لا توجد مناطق",
+  "area_required": "المنطقة مطلوبة",
+
+  "please_select_image": "يرجى اختيار صورة واحدة على الأقل",
+  "please_select_city": "يرجى اختيار مدينة",
+  "please_select_area": "يرجى اختيار منطقة",
+
+  "tap_to_upload_images": "اضغط لرفع الصور",
+  "error_picking_images": "خطأ أثناء اختيار الصور",
+
+  "apartment_details_title": "تفاصيل الشقة",
+
+  "confirm_deletion": "تأكيد الحذف",
+  "confirm_delete_message": "هل أنت متأكد من حذف \"{title}\"؟",
+  "cancel": "إلغاء",
+  "delete": "حذف",
+
+  "about_this_place": "حول هذا المكان",
+  "details": "التفاصيل",
+
+  "rooms": "الغرف",
+  "status": "الحالة",
+ 
+
+  "no_images_available": "لا توجد صور",
+
+  "agent_home_title": "الرئيسية",
+  "agent_home_subtitle": "إدارة عقاراتك",
+
+  "search_your_apartments": "ابحث عن شققك",
+
+  "nav_home": "الرئيسية",
+  "nav_requests": "الطلبات",
+  "nav_chat": "الدردشة",
+  "nav_profile": "الملف الشخصي",
+
+  "something_went_wrong": "حدث خطأ ما",
+  "retry": "إعادة المحاولة",
+
+  "no_apartments_yet": "لا توجد شقق بعد",
+  "no_apartments_hint": "اضغط على زر \"+\" في الأعلى لإضافة أول شقة والبدء بالتأجير.",
+
+
+
+  "booking_requests_title": "طلبات الحجز",
+
+  "no_new_requests": "لا توجد طلبات جديدة",
+  "no_new_requests_subtitle": "لقد قمت بمراجعة جميع الطلبات المعلقة.\nتحقق مرة أخرى لاحقاً!",
+
+  "error_generic": "خطأ: {message}",
+
+  "check_in_date": "تاريخ الدخول:",
+  "check_out_date": "تاريخ الخروج:",
+
+
+  "unknown_user": "مستخدم غير معروف",
+  "unknown_apartment": "شقة غير معروفة",
+
+
+ "search_apartment_hint": "ابحث عن شققك...",
+  "search_placeholder": "أدخل اسم الشقة أو العنوان للبحث.",
+  "searching_for": "جاري البحث عن: {query}",
+
+  "bookingRequestTitle": "طلب حجز",
+
+  "checkIn": "تاريخ الدخول",
+  "checkOut": "تاريخ الخروج",
+  "datePlaceholder": "--",
+
+  "submittingBooking": "جارٍ إرسال طلب الحجز...",
+  "bookingSuccess": "تم إرسال طلب الحجز بنجاح. بانتظار موافقة المالك.",
+  "bookingFailed": "فشل في إرسال طلب الحجز",
+
+  "baseRate": "السعر الأساسي",
+  "nights": "ليالي",
+  "serviceFee": "رسوم الخدمة",
+  "totalAmount": "المبلغ الإجمالي",
+
+  "submitBookingRequest": "إرسال طلب الحجز",
+
+  
+  "myApartmentDetails": "تفاصيل الشقة",
+
+  "confirmDeletion": "تأكيد الحذف",
+  "deleteApartmentConfirm": "هل أنت متأكد أنك تريد حذف \"{title}\"؟",
+ 
+
+  "active": "نشطة",
+  "inactive": "غير نشطة",
+
+  "noImagesAvailable": "لا توجد صور متاحة",
+  "home": "الرئيسية",
+  "profile": "الملف الشخصي"
+
+  
+}

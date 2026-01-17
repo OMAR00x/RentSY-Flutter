@@ -95,8 +95,7 @@ class ApartmentCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // ✨ عرض عدد المفضلة (Like Count) مثل الصورة
-                          // بنعرضه بس لو favoritesCount كان موجود وأكبر من 0
+                          
                           if (apartment.favoritesCount != null && apartment.favoritesCount! > 0)
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -138,7 +137,7 @@ class ApartmentCard extends StatelessWidget {
           ),
         ),
 
-        // زر الحذف في الزاوية
+       
         if (onDelete != null)
           Positioned(
             top: 14,

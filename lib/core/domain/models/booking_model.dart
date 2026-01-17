@@ -1,16 +1,8 @@
-// lib/core/domain/models/booking_model.dart
-
-// لم نعد نحتاج إلى freezed_annotation
-// import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:saved/core/domain/models/apartment_model.dart';
 import 'package:saved/core/domain/models/user.dart';
 
-// لم نعد نحتاج إلى part directives
-// part 'booking_model.freezed.dart';
-// part 'booking_model.g.dart';
 
-// لم نعد نحتاج إلى @freezed أو with _$BookingModel
 class BookingModel {
   final int id;
   final int userId;
@@ -22,9 +14,8 @@ class BookingModel {
   final String paymentMethod;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final ApartmentModel? apartment; // يمكن أن يحتوي على تفاصيل الشقة
-  final UserModel? user; // يمكن أن يحتوي على تفاصيل المستخدم
-
+  final ApartmentModel? apartment; 
+  final UserModel? user; 
   BookingModel({
     required this.id,
     required this.userId,
@@ -40,7 +31,7 @@ class BookingModel {
     this.user,
   });
 
-  // ✨ إضافة 1: factory constructor لـ fromJson
+  
   factory BookingModel.fromJson(Map<String, dynamic> json) {
     return BookingModel(
       id: int.tryParse(json['id'].toString()) ?? 0,
@@ -58,7 +49,7 @@ class BookingModel {
     );
   }
 
-  // ✨ إضافة 2: دالة toJson
+  
   Map<String, dynamic> toJson() => {
         'id': id,
         'user_id': userId,
@@ -74,7 +65,7 @@ class BookingModel {
         'user': user?.toJson(),
       };
 
-  // ✨ إضافة 3: دالة copyWith يدوية (لاستخدامها في Cubit)
+  
   BookingModel copyWith({
     int? id,
     int? userId,

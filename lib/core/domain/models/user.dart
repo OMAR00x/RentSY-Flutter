@@ -1,4 +1,4 @@
-// lib/core/domain/models/user.dart
+
 import 'package:saved/core/domain/models/image.dart';
 
 class UserModel {
@@ -13,7 +13,7 @@ class UserModel {
   final ImageModel? avatar;
   final ImageModel? idFront;
   final ImageModel? idBack;
-  final double walletBalance; // ✨ New: Wallet Balance
+  final double walletBalance; 
 
   UserModel({
     required this.id,
@@ -27,7 +27,7 @@ class UserModel {
     this.avatar,
     this.idFront,
     this.idBack,
-    this.walletBalance = 0.0, // ✨ New: Default to 0.0
+    this.walletBalance = 0.0, 
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -43,7 +43,7 @@ class UserModel {
       avatar: json['avatar'] != null ? ImageModel.fromJson(json['avatar']) : null,
       idFront: json['id_front'] != null ? ImageModel.fromJson(json['id_front']) : null,
       idBack: json['id_back'] != null ? ImageModel.fromJson(json['id_back']) : null,
-      walletBalance: double.tryParse(json['wallet']?.toString() ?? '0.0') ?? 0.0, // ✨ Modified: Reads from 'wallet'
+      walletBalance: double.tryParse(json['wallet']?.toString() ?? '0.0') ?? 0.0, 
     );
   }
 
@@ -59,7 +59,7 @@ class UserModel {
     "avatar": avatar?.toJson(),
     "id_front": idFront?.toJson(),
     "id_back": idBack?.toJson(),
-    "wallet": walletBalance, // ✨ Modified: Uses 'wallet' for consistency
+    "wallet": walletBalance, 
   };
 
   UserModel copyWith({

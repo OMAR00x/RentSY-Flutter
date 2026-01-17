@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -32,16 +34,16 @@ class NotificationService {
       sound: true,
     );
 
-    print('User granted permission: ${settings.authorizationStatus}');
+    log('User granted permission: ${settings.authorizationStatus}');
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
+      log('Got a message whilst in the foreground!');
+      log('Message data: ${message.data}');
       await _showFlutterNotification(message);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print("App opened from background notification : ${message.data}");
+      log("App opened from background notification : ${message.data}");
       _handleNotificationTap(message);
     });
 
@@ -98,7 +100,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.initialize(
       initSetting,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
-        print('User tapped notification: ${response.payload}');
+        log('User tapped notification: ${response.payload}');
       },
     );
   }
@@ -107,7 +109,7 @@ class NotificationService {
     RemoteMessage? message = await FirebaseMessaging.instance
         .getInitialMessage();
     if (message != null) {
-      print(
+      log(
         "App launched from terminated state via notification : ${message.data}",
       );
       _handleNotificationTap(message);
@@ -115,7 +117,7 @@ class NotificationService {
   }
 
   static void _handleNotificationTap(RemoteMessage message) {
-    print('Notification tapped: ${message.data}');
+    log('Notification tapped: ${message.data}');
   }
 
   static Future<void> _setupNotificationChannels() async {
@@ -137,20 +139,20 @@ class NotificationService {
 
   static Future<void> _getFcmToken() async {
     String? token = await _firebaseMessaging.getToken();
-    print('FCM Token :: :: $token');
+    log('FCM Token :: :: $token');
 
     _firebaseMessaging.onTokenRefresh.listen((String token) {
-      print('FCM Token refreshed: $token');
+      log('FCM Token refreshed: $token');
     });
   }
 
   static Future<String?> getFcmToken() async {
     try {
       String? token = await _firebaseMessaging.getToken();
-      print('FCM Token retrieved: $token');
+      log('FCM Token retrieved: $token');
       return token;
     } catch (e) {
-      print('Error getting FCM Token: $e');
+      log('Error getting FCM Token: $e');
       return null;
     }
   }

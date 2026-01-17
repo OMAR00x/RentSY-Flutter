@@ -57,10 +57,10 @@ class _BookingRequestsScreenState extends State<BookingRequestsScreen> {
                     return BookingRequestCard(
                       booking: booking,
                       onAccept: () {
-                        context.read<AgentBookingRequestsCubit>().updateBookingStatus(booking.id, 'approved'); // ✨ استدعاء الدالة الجديدة
+                        context.read<AgentBookingRequestsCubit>().updateBookingStatus(booking.id, 'approved'); 
                       },
                       onReject: () {
-                        context.read<AgentBookingRequestsCubit>().updateBookingStatus(booking.id, 'rejected'); // ✨ استدعاء الدالة الجديدة
+                        context.read<AgentBookingRequestsCubit>().updateBookingStatus(booking.id, 'rejected'); 
                       },
                     );
                   },
@@ -97,7 +97,7 @@ class _BookingRequestsScreenState extends State<BookingRequestsScreen> {
 }
 
 
-// ✨ مكون Card جديد لطلبات الحجز (تم تعديله ليطابق الصورة)
+
 class BookingRequestCard extends StatelessWidget {
   final BookingModel booking;
   final VoidCallback onAccept;
@@ -112,7 +112,7 @@ class BookingRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // التأكد من وجود بيانات المستخدم والشقة
+    
     final String guestName = '${booking.user?.firstName ?? 'Unknown'} ${booking.user?.lastName ?? 'User'}';
     final String apartmentTitle = booking.apartment?.title ?? 'Unknown Apartment';
     final String? guestAvatarUrl = booking.user?.avatar?.url;
@@ -124,14 +124,14 @@ class BookingRequestCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.milk, // لون خلفية البطاقة
+        color: AppColors.milk, 
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withValues(alpha:0.1),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: const Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), 
           ),
         ],
       ),
@@ -164,7 +164,7 @@ class BookingRequestCard extends StatelessWidget {
           _buildDetailRow('Check-in Date:', formattedStartDate),
           _buildDetailRow('Check-out Date:', formattedEndDate),
           _buildDetailRow('Total Amount:', '\$$totalPrice'),
-          // ✨ إذا أردت عرض حالة الحجز (Pending)
+          
           _buildDetailRow('Status:', booking.status.toUpperCase(), color: AppColors.taupe),
           const SizedBox(height: 16),
           Row(
@@ -183,7 +183,7 @@ class BookingRequestCard extends StatelessWidget {
               ElevatedButton(
                 onPressed: onAccept,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.charcoal, // استخدام لون التطبيق الرئيسي
+                  backgroundColor: AppColors.charcoal, 
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),

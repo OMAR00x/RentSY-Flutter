@@ -1,4 +1,4 @@
-// lib/core/domain/models/area_model.dart
+
 
 class AreaModel {
   final int id;

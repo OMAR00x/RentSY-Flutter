@@ -1,3 +1,7 @@
+// lib/features/renter_home/screens/booking_request_screen.dart
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -5,11 +9,13 @@ import 'package:saved/constants/app_colors.dart';
 import 'package:saved/core/domain/models/apartment_model.dart';
 import 'package:saved/features/renter_home/cubit/booking_cubit.dart';
 import 'package:saved/features/renter_home/cubit/booking_state.dart';
+import 'package:saved/features/renter_home/cubit/my_bookings_cubit.dart';
 import 'package:table_calendar/table_calendar.dart';
+// ✨ Added import for ProfileCubit
+import 'package:saved/features/profile/cubit/profile_cubit.dart';
 
 class BookingRequestScreen extends StatefulWidget {
   final ApartmentModel apartment;
-
   const BookingRequestScreen({super.key, required this.apartment});
 
   @override
@@ -19,22 +25,18 @@ class BookingRequestScreen extends StatefulWidget {
 class _BookingRequestScreenState extends State<BookingRequestScreen> {
   DateTime? _checkInDate;
   DateTime? _checkOutDate;
-  DateTime _focusedDay = DateTime.now(); // استخدام DateTime.now() كنقطة بداية
+  DateTime _focusedDay = DateTime.now();
   final String _paymentMethod = 'wallet';
 
-  // ✨ دالة لحساب عدد الأيام
   int get _numberOfNights {
     if (_checkInDate == null || _checkOutDate == null) return 0;
     return _checkOutDate!.difference(_checkInDate!).inDays;
   }
 
-  // ✨ دالة لحساب السعر الأساسي ديناميكياً
   double get _baseRate {
-    // نفترض أن سعر الشقة هو سعر يومي
     return widget.apartment.price * _numberOfNights;
   }
 
-  // ✨ رسوم الخدمة - تم إزالتها
   double get _serviceFee {
     return 0.0;
   }
@@ -60,7 +62,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
         ),
         centerTitle: true,
       ),
-            body: BlocListener<BookingCubit, BookingState>(
+      body: BlocListener<BookingCubit, BookingState>(
         listener: (context, state) {
           state.whenOrNull(
             loading: () {
@@ -69,14 +71,28 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
               );
             },
             success: (booking) {
-              // ✨ تم التعديل هنا: الرسالة تشير إلى أن الطلب قيد المراجعة
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Booking request submitted successfully. Waiting for owner approval.'),
                   backgroundColor: Colors.green,
                 ),
               );
-              Navigator.of(context).pop(); // العودة بعد إرسال الطلب
+              // ✨ Added: Refresh user profile after successful booking
+              context.read<ProfileCubit>().fetchProfile();
+              
+              // ✨ أضف هذا السطر هنا:
+              // بعد إنشاء حجز جديد بنجاح، اطلب من MyBookingsCubit إعادة جلب الحجوزات.
+              // هذا يفترض أن MyBookingsCubit متاح في الـ context الخاص بـ BookingRequestScreen
+              // (وهو أمر وارد إذا كانا جزءاً من نفس ميزة renter_home).
+              try {
+                context.read<MyBookingsCubit>().fetchMyBookings();
+              } catch (e) {
+                // قد تحتاج للتعامل مع هذا الاستثناء إذا لم يكن MyBookingsCubit متاحاً في السياق
+                // (أقل احتمالاً في تطبيق منظم جيداً).
+                log('Error accessing MyBookingsCubit to refresh: $e');
+              }
+              
+              Navigator.of(context).pop();
             },
             error: (message) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -109,7 +125,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
   }
 
   Widget _dateCard(String title, DateTime? date, VoidCallback onTap) {
-    return GestureDetector( // ✨ جعل الـ card قابل للنقر
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(14),
@@ -158,8 +174,8 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
       ),
       padding: const EdgeInsets.all(12),
       child: TableCalendar(
-        firstDay: DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day), // يبدأ من اليوم
-        lastDay: DateTime.utc(DateTime.now().year + 1, 12, 31), // لمدة سنة من الآن
+        firstDay: DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+        lastDay: DateTime.utc(DateTime.now().year + 1, 12, 31),
         focusedDay: _focusedDay,
         selectedDayPredicate: (day) {
           if (_checkInDate == null) return false;
@@ -167,7 +183,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
             return isSameDay(day, _checkInDate);
           }
           return (day.isAfter(_checkInDate!.subtract(const Duration(days: 1))) &&
-                  day.isBefore(_checkOutDate!.add(const Duration(days: 1)))) ||
+              day.isBefore(_checkOutDate!.add(const Duration(days: 1)))) ||
               isSameDay(day, _checkInDate) ||
               isSameDay(day, _checkOutDate);
         },
@@ -175,19 +191,17 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
           setState(() {
             _focusedDay = focused;
             if (_checkInDate == null || (_checkOutDate != null && selectedDay.isBefore(_checkInDate!))) {
-              // إذا لم يتم اختيار تاريخ الدخول أو إذا تم اختيار تاريخ قبل تاريخ الدخول الحالي
               _checkInDate = selectedDay;
-              _checkOutDate = null; // إعادة تعيين تاريخ الخروج
+              _checkOutDate = null;
             } else if (selectedDay.isAfter(_checkInDate!)) {
               _checkOutDate = selectedDay;
             } else if (isSameDay(selectedDay, _checkInDate!)) {
-              // إذا تم اختيار نفس تاريخ الدخول مرة أخرى، قم بمسح تاريخ الخروج
               _checkOutDate = null;
             }
           });
         },
         calendarStyle: CalendarStyle(
-          rangeHighlightColor: AppColors.charcoal.withValues(alpha:0.08),
+          rangeHighlightColor: AppColors.charcoal.withOpacity(0.08),
           selectedDecoration: const BoxDecoration(
             color: AppColors.charcoal,
             shape: BoxShape.circle,
@@ -232,7 +246,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
       ),
       child: Column(
         children: [
-          _priceRow('Base Rate ($_numberOfNights nights)', _baseRate),
+          _priceRow('Base Rate (${_numberOfNights} nights)', _baseRate),
           const Divider(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -245,7 +259,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
                 ),
               ),
               Text(
-                '\$${_totalAmount.toStringAsFixed(2)}', // ✨ ديناميكي
+                '\$${_totalAmount.toStringAsFixed(2)}',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -270,7 +284,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
     );
   }
 
- Widget _confirmButton() {
+  Widget _confirmButton() {
     final bool canBook = _checkInDate != null && _checkOutDate != null && _numberOfNights > 0;
     return SizedBox(
       width: double.infinity,
@@ -285,13 +299,14 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
         onPressed: canBook
             ? () {
                 context.read<BookingCubit>().createBooking(
-                      apartmentId: widget.apartment.id,
-                      startDate: _checkInDate!,
-                      endDate: _checkOutDate!,
-                    );
+                  apartmentId: widget.apartment.id,
+                  startDate: _checkInDate!,
+                  endDate: _checkOutDate!,
+                  paymentMethod: _paymentMethod,
+                );
               }
             : null,
-        child: BlocBuilder<BookingCubit, BookingState>( // ✨ لإظهار حالة التحميل على الزر
+        child: BlocBuilder<BookingCubit, BookingState>(
           builder: (context, state) {
             return state.maybeWhen(
               loading: () => const CircularProgressIndicator(color: Colors.white),
@@ -310,7 +325,6 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
     );
   }
 
-  // ✨ دالة إضافية لاستخدامها مع _dateCard (إذا أردت اختيار يدوي غير التقويم)
   Future<void> _selectDate(BuildContext context, {required bool isCheckIn}) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -334,18 +348,16 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
       setState(() {
         if (isCheckIn) {
           _checkInDate = picked;
-          // إذا كان تاريخ الدخول بعد تاريخ الخروج، قم بمسح تاريخ الخروج
           if (_checkOutDate != null && _checkInDate!.isAfter(_checkOutDate!)) {
             _checkOutDate = null;
           }
         } else {
           _checkOutDate = picked;
-          // إذا كان تاريخ الخروج قبل تاريخ الدخول، قم بمسح تاريخ الدخول
           if (_checkInDate != null && _checkOutDate!.isBefore(_checkInDate!)) {
             _checkInDate = null;
           }
         }
-        _focusedDay = picked; // تحديث focusedDay ليعكس آخر اختيار
+        _focusedDay = picked;
       });
     }
   }

@@ -12,12 +12,12 @@ class ApartmentModel {
   final int rooms;
   final String status;
   final String address;
-  bool isFavorite; // جعلناها non-final للسماح بالتعديل على حالة المفضلة
+  bool isFavorite; 
   final List<ImageModel> images;
   final CityModel city;
   final UserModel owner;
   final List<AmenityModel> amenities;
- final int? favoritesCount; // ✨ جديد: عدد مرات الإضافة للمفضلة
+ final int? favoritesCount; 
 
   String? get mainImageUrl {
     try {
@@ -36,12 +36,12 @@ class ApartmentModel {
     required this.rooms,
     required this.status,
     required this.address,
-    this.isFavorite = false, // ✨ افتراضي: false
+    this.isFavorite = false, 
     required this.images,
     required this.city,
     required this.owner,
     required this.amenities,
-    this.favoritesCount, // ✨ جديد: إضافة للكونستركتور
+    this.favoritesCount, 
   });
 
   factory ApartmentModel.fromJson(Map<String, dynamic> json) {
@@ -59,7 +59,7 @@ class ApartmentModel {
       city: json['city'] != null ? CityModel.fromJson(json['city']) : CityModel(id: 0, name: 'Unknown'),
       owner: json['owner'] != null ? UserModel.fromJson(json['owner']) : UserModel.fromJson({'id': 0, 'first_name': 'Unknown', 'last_name': 'User', 'phone': '', 'role': '', 'status': '', 'token': ''}),
       amenities: (json['amenities'] as List? ?? []).map((a) => AmenityModel.fromJson(a)).toList(),
-      favoritesCount: json['favorites_count'] != null ? int.tryParse(json['favorites_count'].toString()) : null, // ✨ قراءة favorites_count
+      favoritesCount: json['favorites_count'] != null ? int.tryParse(json['favorites_count'].toString()) : null, 
     );
   }
 
@@ -77,10 +77,10 @@ class ApartmentModel {
         "city": city.toJson(),
         "owner": owner.toJson(),
         "amenities": amenities.map((e) => e.toJson()).toList(),
-        "favorites_count": favoritesCount, // ✨ جديد: إضافة favorites_count للـ toJson
+        "favorites_count": favoritesCount, 
       };
 
-  // ✨ جديد: دالة copyWith لتحديث الـ ApartmentModel (مفيدة جداً مع Cubit)
+ 
   ApartmentModel copyWith({
     int? id,
     String? title,

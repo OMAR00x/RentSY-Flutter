@@ -1,4 +1,4 @@
-// lib/features/auth/screens/widgets/account_type_card.dart
+
 import 'package:flutter/material.dart';
 import 'package:saved/constants/app_colors.dart';
 

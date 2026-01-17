@@ -1,4 +1,4 @@
-// lib/features/agent_home/screens/apartment_details_screen.dart
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,6 +54,7 @@ class AgentApartmentDetailsScreen extends StatelessWidget {
             expandedHeight: 280,
             pinned: true,
             stretch: true,
+            primary: true, 
             backgroundColor: AppColors.charcoal,
             iconTheme: const IconThemeData(color: Colors.white),
             title: const Text("My Apartment Details", style: TextStyle(color: Colors.white)),
@@ -133,16 +134,18 @@ class AgentApartmentDetailsScreen extends StatelessWidget {
         ),
       );
     }
-    return PageView.builder(
-      itemCount: apartment.images.length,
-      itemBuilder: (_, index) {
-        return CachedNetworkImage(
-          imageUrl: getFullImageUrl(apartment.images[index].url),
-          fit: BoxFit.cover,
-          placeholder: (context, url) => const LoadingWidget(),
-          errorWidget: (context, url, error) => const Center(child: Icon(Icons.error, color: Colors.white, size: 50)),
-        );
-      },
+    return SafeArea(
+      child: PageView.builder(
+        itemCount: apartment.images.length,
+        itemBuilder: (_, index) {
+          return CachedNetworkImage(
+            imageUrl: getFullImageUrl(apartment.images[index].url),
+            fit: BoxFit.cover,
+            placeholder: (context, url) => const LoadingWidget(),
+            errorWidget: (context, url, error) => const Center(child: Icon(Icons.error, color: Colors.white, size: 50)),
+          );
+        },
+      ),
     );
   }
 

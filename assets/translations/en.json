@@ -1,0 +1,276 @@
+{
+  "login": "Login",
+  "welcome_back": "Welcome Back! Enter your information\nto get started",
+
+  "mobile_number": "Mobile Number",
+  "enter_mobile_number": "Enter your mobile number",
+  "enter_valid_number": "Enter a valid number",
+
+  "password": "Password",
+  "enter_password": "Enter your password",
+  "password_too_short": "Password is too short",
+
+  "forget_password": "Forget your password?",
+
+  "dont_have_account": "Don't have an account?",
+  "register": "Register",
+
+  "pending_approval": "Your account is pending approval",
+  "login_error": "Login failed",
+
+  "account_type_title": "Choose Account Type",
+
+  "renter_title": "Renter",
+  "renter_subtitle": "Find and rent your perfect home easily",
+
+  "owner_title": "Owner",
+  "owner_subtitle": "List and manage your properties effortlessly",
+
+  "already_have_account": "Already have an account? ",
+    "account_created_successfully": "Account Created Successfully",
+  "account_pending_review": "Your account is now pending review. You will be notified once an administrator has approved it.",
+  "back_to_login": "Back to Login",
+
+
+  "edit_profile_title": "Edit Profile",
+  "update_profile_photo": "Update Profile Photo",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  
+  "password_hint": "Enter your password",
+  "save_changes": "Save Changes",
+  "profile_updated_successfully": "Profile Updated Successfully!",
+
+  "profile_title": "Profile",
+  "edit_profile": "Edit Profile",
+  "language": "Language",
+  "theme": "Theme",
+  "logout": "Logout",
+
+
+
+
+  "phone": "Phone",
+  "birth_date": "Birth Date",
+  
+  "confirm_password": "Confirm Password",
+  "personal_photo": "Personal Photo",
+  "id_front": "ID Front",
+  "id_back": "ID Back",
+  "create_account": "Create account",
+  "required_field": "Required",
+  "min_8_characters": "Min 8 characters",
+  "passwords_do_not_match": "Passwords don't match",
+  "please_select_all_images": "Please select all required images",
+
+
+  "welcome_title": "Welcome to Saved",
+  "welcome_subtitle": "Find your perfect home or list your property effortlessly",
+  "next": "Next",
+  "skip": "Skip",
+  "location_prompt": "Choose your preferred locations",
+  "done": "Done",
+
+  "logo_missing": "Logo missing in\nassets/images/logo.png",
+  "splash_pending": "Your account is pending approval",
+  "splash_rejected": "Your account was rejected",
+  "splash_error": "Something went wrong. Please try again.",
+
+  "appName": "RentSY",
+
+  "onboardingTitle": "Welcome To \n RentSy",
+  "onboardingSub": "Begin your search for the ultimate apartment,\n featuring luxurious designs, premium amenities\n and a prime location.",
+  "getStarted": "Get started",
+  "popularLocations": "Popular Locations",
+
+  "accountTypeTitle": "How will you be using RentSY",
+  "renterTitle": "I'm a Renter",
+  "renterSubtitle": "Find your next home",
+  "ownerTitle": "I'm an Owner",
+  "ownerSubtitle": "List and manage your property",
+  "alreadyHaveAccount": "Already have an account? ",
+ 
+
+  "welcomeBack": "Welcome Back",
+  "loginToFindHome": "Log in to find your next home",
+  "mobileNumber": "Mobile Number",
+  
+  "dontHaveAccount": "Don't have an account? ",
+  "signUp": "Sign up",
+
+  "createYourAccount": "Create Your Account",
+  "letsGetYouSetUp": "Let's get you set up",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+ 
+  "birthDate": "Date of Birth",
+  "confirmPassword": "Confirm Password",
+  "verificationDocs": "Verification Documents",
+  "personalPhoto": "Personal Photo (Avatar)",
+  "idFront": "ID Front",
+  "idBack": "ID Back",
+  "noImageSelected": "No image selected",
+  "createAccount": "Create Account",
+
+  "accountCreatedSuccessfully": "Account Created Successfully",
+  "accountPendingReview": "Your account is now pending review. You will be notified once an administrator has approved it.",
+  "backToLogin": "Back to Login",
+
+  "agentHomeTitle": "Home",
+  "agentHomeSubtitle": "Manage your properties",
+  "searchYourApartments": "Search Your Apartments",
+
+  "aboutThisPlace": "About this place",
+  "hostedBy": "Hosted by",
+  "bookNow": "Book Now",
+
+  "addApartmentTitle": "Add New Apartment",
+  "apartmentNameLabel": "Apartment Name",
+  "apartmentNameHint": "e.g., The Sunny Loft",
+  "descriptionLabel": "Description",
+  "descriptionHint": "Describe your apartment's best features...",
+  "addressLabel": "Address",
+  "addressHint": "Enter full address",
+  "numRoomsLabel": "Number of Rooms",
+  "pricePerNightLabel": "Price per night",
+  "priceHint": "e.g., 150",
+  "featuresLabel": "Features",
+  "addPhotosLabel": "Add photos of your property",
+  "uploadHint": "Click to upload or drag and drop",
+  "saveListing": "Save Listing",
+
+  "bookingRequestsTitle": "Booking Requests",
+  "noNewRequests": "No New Requests",
+  "noNewRequestsSubtitle": "You've reviewed all pending requests.\nCheck back later!",
+  "reject": "Reject",
+  "accept": "Accept",
+
+  "searchApartmentHint": "Search your apartments...",
+  "searchPlaceholder": "Enter a name or address to find an apartment.",
+
+  "favorites": "Favorites",
+  "myBookings": "My Bookings",
+  "noFavoritesYet": "No apartments in your favorites list yet.",
+
+  "tenantHello": "Hello, Renter",
+  "tenantSearchHint": "Search location, name...",
+  "perNight": " / night",
+
+  "profileTitle": "Profile",
+  "editProfile": "Edit Profile",
+ 
+
+  "editProfileTitle": "Edit Profile",
+  "updateProfilePhoto": "Update Profile Photo",
+  "passwordHint": "********",
+  "saveChanges": "Save Changes",
+
+   "add_apartment_title": "Add New Apartment",
+
+  "title_required": "Title is required",
+  "description_required": "Description is required",
+  "address_required": "Address is required",
+  "required": "Required",
+
+  "city": "City",
+  "select_city": "Select a city",
+  "city_required": "City is required",
+
+  "area": "Area",
+  "select_area": "Select an area",
+  "select_city_first": "Select a city first",
+  "no_areas_found": "No areas found",
+  "area_required": "Area is required",
+
+  "please_select_image": "Please select at least one image.",
+  "please_select_city": "Please select a city.",
+  "please_select_area": "Please select an area.",
+
+  "tap_to_upload_images": "Tap to upload images",
+  "error_picking_images": "Error picking images",
+
+  "apartment_details_title": "My Apartment Details",
+
+  "confirm_deletion": "Confirm Deletion",
+  "confirm_delete_message": "Are you sure you want to delete \"{title}\"?",
+  "cancel": "Cancel",
+  "delete": "Delete",
+
+  "about_this_place": "About this place",
+  "details": "Details",
+
+  "rooms": "Rooms",
+  "status": "Status",
+
+
+  "no_images_available": "No Images Available",
+
+  "agent_home_title": "Home",
+  "agent_home_subtitle": "Manage your properties",
+
+  "search_your_apartments": "Search Your Apartments",
+
+  "nav_home": "Home",
+  "nav_requests": "Requests",
+  "nav_chat": "Chat",
+  "nav_profile": "Profile",
+
+  "something_went_wrong": "Something Went Wrong",
+  "retry": "Retry",
+
+  "no_apartments_yet": "No Apartments Yet",
+  "no_apartments_hint": "Click the \"+\" button in the top right to add your first apartment and start renting.",
+
+
+  "confirm_delete_apartment": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+
+  "booking_requests_title": "Booking Requests",
+
+  "no_new_requests": "No New Requests",
+  "no_new_requests_subtitle": "You've reviewed all pending requests.\nCheck back later!",
+
+  "error_generic": "Error: {message}",
+
+  "check_in_date": "Check-in Date:",
+  "check_out_date": "Check-out Date:",
+  "total_amount": "Total Amount:",
+
+
+  "unknown_user": "Unknown User",
+  "unknown_apartment": "Unknown Apartment",  
+
+    "search_apartment_hint": "Search your apartments...",
+  "search_placeholder": "Enter a name or address to find an apartment.",
+  "searching_for": "Searching for: {query}",
+
+  
+  "bookingRequestTitle": "Booking Request",
+
+  "checkIn": "CHECK-IN",
+  "checkOut": "CHECK-OUT",
+  "datePlaceholder": "--",
+
+  "submittingBooking": "Submitting booking request...",
+  "bookingSuccess": "Booking request submitted successfully. Waiting for owner approval.",
+  "bookingFailed": "Failed to submit booking request",
+
+  "baseRate": "Base Rate",
+  "nights": "nights",
+  "serviceFee": "Service Fee",
+  "totalAmount": "Total Amount",
+
+  "submitBookingRequest": "Submit Booking Request",
+  "myApartmentDetails": "My Apartment Details",
+
+  "confirmDeletion": "Confirm Deletion",
+  "deleteApartmentConfirm": "Are you sure you want to delete \"{title}\"?",
+  
+
+  "active": "Active",
+  "inactive": "Inactive",
+
+  "noImagesAvailable": "No Images Available",
+    "home": "Home",
+  "profile": "Profile"
+ 
+}

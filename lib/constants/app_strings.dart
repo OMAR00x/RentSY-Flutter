@@ -1,4 +1,4 @@
-// lib/constants/app_strings.dart
+
 
 class AppStrings {
   // General
@@ -94,7 +94,7 @@ class AppStrings {
   static const noFavoritesYet = "No apartments in your favorites list yet.";
 
   // Renter Home
-  static const tenantHello = "Hello, Renter";
+  static const tenantHello = "choose your Dream apartment";
   static const tenantSearchHint = "Search location, name...";
   static const perNight = " / night";
 

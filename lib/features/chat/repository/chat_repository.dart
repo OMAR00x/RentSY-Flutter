@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/message.dart';
@@ -55,7 +57,7 @@ class ChatRepository {
       );
       return (response.data as List).map((e) => Conversation.fromJson(e)).toList();
     } catch (e) {
-      print('Error getting conversations: $e');
+      log('Error getting conversations: $e');
       rethrow;
     }
   }

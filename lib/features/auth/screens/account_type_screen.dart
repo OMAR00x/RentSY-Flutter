@@ -23,7 +23,7 @@ class AccountTypePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  //Image.asset('assets/images/logo.png', height:1, width: 200),
+                 
                   
                   const Text(
                     AppStrings.accountTypeTitle,
@@ -31,7 +31,7 @@ class AccountTypePage extends StatelessWidget {
                     style: TextStyle(fontSize: 28, color: AppColors.charcoal, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,wordSpacing:1.2 ),
                   ),
                   const SizedBox(height:45),
-                  // --- بطاقة المستأجر (Renter) ---
+                  
                   AccountTypeCard(
                     icon: Icons.key_outlined,
                     title: AppStrings.renterTitle,
@@ -39,7 +39,7 @@ class AccountTypePage extends StatelessWidget {
                     onTap: () => Navigator.pushNamed(context, '/register', arguments: 'renter'),
                   ),
                   const SizedBox(height: 20),
-                  // --- بطاقة المالك (Owner) ---
+                 
                   AccountTypeCard(
                     isPrimary: false,
                     icon: Icons.home_work_outlined,
@@ -48,7 +48,7 @@ class AccountTypePage extends StatelessWidget {
                     onTap: () => Navigator.pushNamed(context, '/register', arguments: 'owner'),
                   ),
                   const SizedBox(height:50),
-                  // --- رابط تسجيل الدخول ---
+                 
                   GestureDetector(
                      onTap: () => Navigator.pushNamed(context, '/login'),
                      child:

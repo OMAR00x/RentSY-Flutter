@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:saved/core/domain/models/user.dart';
-import 'package:saved/core/services/api_client.dart'; // ✨ 1. استيراد العميل
+import 'package:saved/core/services/api_client.dart'; 
 
 class ProfileRepository {
-  // ✨ 2. استخدام نفس العميل المركزي
+  
   final Dio _dio = ApiClient().dio;
 
   Future<UserModel> updateProfile({
@@ -15,7 +15,7 @@ class ProfileRepository {
   }) async {
     try {
       final Map<String, dynamic> data = {
-        '_method': 'PUT', // ✨ ملاحظة مهمة: بعض الـ backends تتطلب هذا الحقل مع FormData
+        '_method': 'PUT', 
         'first_name': firstName,
         'last_name': lastName,
       };
@@ -31,10 +31,10 @@ class ProfileRepository {
 
       final formData = FormData.fromMap(data);
 
-      // ✨ 3. استخدام post مع FormData لتحديث البيانات (أكثر توافقية)
+     
       final response = await _dio.post('/profile', data: formData);
 
-      // الـ API يرجع بيانات المستخدم المحدثة
+      
       return UserModel.fromJson(response.data);
 
     } on DioException catch (e) {

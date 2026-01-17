@@ -14,8 +14,8 @@ class ApartmentFormState with _$ApartmentFormState {
   const factory ApartmentFormState.success({
     required List<CityModel> cities,
     required List<AmenityModel> amenities,
-    @Default([]) List<AreaModel> areas, // ✨ جعلها افتراضية
-    @Default(false) bool loadingAreas,   // ✨ إضافة حالة تحميل للمناطق
+    @Default([]) List<AreaModel> areas, 
+    @Default(false) bool loadingAreas,   
   }) = _Success;
   const factory ApartmentFormState.error(String message) = _Error;
 }

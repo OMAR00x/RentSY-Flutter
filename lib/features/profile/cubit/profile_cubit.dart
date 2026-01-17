@@ -9,19 +9,19 @@ class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepository _profileRepository;
 
   ProfileCubit(this._authRepository, this._profileRepository) 
-      : super(const ProfileState.initial()); // ✨ استخدام الحالة الجديدة
+      : super(const ProfileState.initial()); 
 
   Future<void> fetchProfile() async {
-    emit(const ProfileState.loadInProgress()); // ✨ استخدام الحالة الجديدة
+    emit(const ProfileState.loadInProgress()); 
     try {
       final user = await _authRepository.getAuthenticatedUser();
       if (user != null) {
-        emit(ProfileState.loadSuccess(user)); // ✨ استخدام الحالة الجديدة
+        emit(ProfileState.loadSuccess(user)); 
       } else {
-        emit(const ProfileState.loadFailure("User not authenticated.")); // ✨ استخدام الحالة الجديدة
+        emit(const ProfileState.loadFailure("User not authenticated.")); 
       }
     } catch (e) {
-      emit(ProfileState.loadFailure("Failed to load profile: ${e.toString()}")); // ✨ استخدام الحالة الجديدة
+      emit(ProfileState.loadFailure("Failed to load profile: ${e.toString()}")); 
     }
   }
 
@@ -31,7 +31,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     String? password,
     File? avatar,
   }) async {
-    emit(const ProfileState.updateInProgress()); // ✨ استخدام الحالة الجديدة
+    emit(const ProfileState.updateInProgress()); 
     try {
       final updatedUser = await _profileRepository.updateProfile(
         firstName: firstName,
@@ -39,7 +39,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         password: password,
         avatar: avatar,
       );
-      // بعد النجاح، نرجع إلى حالة النجاح مع البيانات المحدثة
+     
       emit(ProfileState.updateSuccess(updatedUser));
     } catch (e) {
       emit(ProfileState.updateFailure(e.toString()));
