@@ -1,5 +1,4 @@
-//import 'package:firebase_core/firebase_core.dart';
-//import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ import 'package:saved/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(
     NotificationService.firebaseMessaginhBackgroundHandler,
@@ -40,7 +39,11 @@ void main() async {
   await NotificationService.initializeNotification();
 
   runApp(
-    MultiRepositoryProvider(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      child: MultiRepositoryProvider(
       providers: [
         RepositoryProvider(create: (context) => AuthRepository()),
         RepositoryProvider(create: (context) => RegisterRepository()),
@@ -109,6 +112,7 @@ void main() async {
         child: const MyApp(),
       ),
     ),
+    ),
   );
 }
 
@@ -119,9 +123,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       initialRoute: AppRouter.splash,
-
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }

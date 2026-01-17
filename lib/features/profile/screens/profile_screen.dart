@@ -1,4 +1,4 @@
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saved/constants/api_constants.dart';
@@ -28,6 +28,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     context.read<ProfileCubit>().fetchProfile();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    selectedLanguage = context.locale.languageCode == 'ar' ? 'Ar' : 'En';
+  }
+
   void _logout() {
     context.read<AuthRepository>().logout();
     Navigator.of(
@@ -42,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
+        title: Text(
           AppStrings.profileTitle,
           style: TextStyle(color: AppColors.charcoal),
         ),
@@ -150,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              child: const Text(
+              child: Text(
                 AppStrings.editProfile,
                 style: TextStyle(fontSize: 16),
               ),
@@ -235,7 +241,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _langButton(String text) {
     final bool isActive = selectedLanguage == text;
     return GestureDetector(
-      onTap: () => setState(() => selectedLanguage = text),
+      onTap: () {
+        setState(() => selectedLanguage = text);
+        if (text == 'Ar') {
+          context.setLocale(const Locale('ar'));
+        } else {
+          context.setLocale(const Locale('en'));
+        }
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 4),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
